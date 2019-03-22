@@ -1,0 +1,43 @@
+<RCC>
+    <qresource prefix="/Images">
+        <file>Image/OnlyRussian.png</file>
+        <file>Image/keyboard.ico</file>
+        <file>Image/EmptyButton.png</file>
+        <file>Image/}false.png</file>
+        <file>Image/}true.png</file>
+        <file>Image/}.png</file>
+        <file>Image/{false.png</file>
+        <file>Image/{true.png</file>
+        <file>Image/{.png</file>
+        <file>Image/Pfalse.png</file>
+        <file>Image/Ptrue.png</file>
+        <file>Image/P.png</file>
+        <file>Image/O.png</file>
+        <file>Image/Tfalse.png</file>
+        <file>Image/Ifalse.png</file>
+        <file>Image/Itrue.png</file>
+        <file>Image/I.png</file>
+        <file>Image/Ufalse.png</file>
+        <file>Image/Utrue.png</file>
+        <file>Image/U.png</file>
+        <file>Image/Yfalse.png</file>
+        <file>Image/Ytrue.png</file>
+        <file>Image/Y.png</file>
+        <file>Image/Ttrue.png</file>
+        <file>Image/T.png</file>
+        <file>Image/Rfalse.png</file>
+        <file>Image/Rtrue.png</file>
+        <file>Image/R.png</file>
+        <file>Image/Qfalse.png</file>
+        <file>Image/Qtrue.png</file>
+        <file>Image/Q.png</file>
+        <file>Image/Efalse.png</file>
+        <file>Image/Etrue.png</file>
+        <file>Image/E.png</file>
+        <file>Image/Wfalse.png</file>
+        <file>Image/Wtrue.png</file>
+        <file>Image/W.png</file>
+        <file>Image/Ofalse.png</file>
+        <file>Image/Otrue.png</file>
+    </qresource>
+</RCC>
