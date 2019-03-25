@@ -6,7 +6,7 @@ Typing::Typing(QWidget *parent) :
     ui(new Ui::Typing)
 {
     ui->setupUi(this);
-    setFixedSize(1050,520);
+    setFixedSize(1060,650);
     setMaximumSize(1280,768);
 }
 

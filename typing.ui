@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>768</width>
-    <height>440</height>
+    <height>600</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -74,12 +74,27 @@
       </item>
       <item>
        <layout class="QHBoxLayout" name="KeyboardLayout">
+        <property name="sizeConstraint">
+         <enum>QLayout::SetDefaultConstraint</enum>
+        </property>
         <item>
          <widget class="Keyboard" name="KeyboardWidget" native="true">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>650</height>
+           </size>
+          </property>
           <property name="maximumSize">
            <size>
             <width>16777215</width>
-            <height>400</height>
+            <height>16777215</height>
            </size>
           </property>
           <property name="layoutDirection">
@@ -140,6 +155,13 @@
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>Опции</string>
+    </property>
+    <addaction name="action"/>
+   </widget>
+   <addaction name="menu"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -148,8 +170,14 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="action"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="action">
+   <property name="text">
+    <string>Старт</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
@@ -161,6 +189,7 @@
    <slots>
     <signal>sendWord(QString)</signal>
     <signal>printWord(QString)</signal>
+    <slot>startGame()</slot>
    </slots>
   </customwidget>
  </customwidgets>
@@ -193,8 +222,24 @@
      <y>336</y>
     </hint>
     <hint type="destinationlabel">
-     <x>59</x>
-     <y>57</y>
+     <x>70</x>
+     <y>526</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action</sender>
+   <signal>triggered()</signal>
+   <receiver>KeyboardWidget</receiver>
+   <slot>startGame()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>383</x>
+     <y>460</y>
     </hint>
    </hints>
   </connection>

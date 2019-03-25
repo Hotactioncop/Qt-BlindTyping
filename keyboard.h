@@ -10,6 +10,11 @@
 #include <QKeyEvent>
 #include <QKeySequence>
 #include <QVector>
+#include <QFile>
+#include <QTimer>
+#include <QThread>
+#include <QMessageBox>
+#include <QTextStream>
 
 class Keyboard : public QWidget
 {
@@ -19,7 +24,15 @@ class Keyboard : public QWidget
     int buttPos = 100;
     bool hit = true;
     QString myWord;
+    int NextWord = 0;
+    QVector <QString> stringWord;
     QVector <QVector<QPixmap>> pixes;
+    int idTimer;
+    bool gameOn = false;
+    uint charNumbers = 3;
+    int index = -1;
+    QVector<QChar> symbols{'п','р','о','а','е','н','г','м','и','т','ь','л','в','к','ш','с','б','ы','д','у','щ','ч','ю','ф','ж','ц','з','я','э','й','х','ъ','-'};
+    QVector <QVector<QString>> wordBase;
 public:
     explicit Keyboard(QWidget *parent = nullptr);
 
@@ -28,6 +41,7 @@ signals:
     void printWord(QString);
 
 public slots:
+    void startGame();
 
     // QWidget interface
 protected:
@@ -40,6 +54,10 @@ protected:
     // QWidget interface
 protected:
     virtual void keyReleaseEvent(QKeyEvent *event);
+
+    // QObject interface
+protected:
+    virtual void timerEvent(QTimerEvent *event);
 };
 
 #endif // KEYBOARD_H
