@@ -1,5 +1,8 @@
 #include "typing.h"
 #include <QApplication>
+#include <QtGui>
+#include <QTextCodec>
+
 
 int main(int argc, char *argv[])
 {

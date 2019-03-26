@@ -113,43 +113,51 @@ Keyboard::Keyboard(QWidget *parent) : QWidget(parent)
     pixes[2][32] = QPixmap(":/Images/Image/DOTfalse.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[2][33] = QPixmap(":/Images/Image/SPACEfalse.png").scaled(538,84,Qt::KeepAspectRatio,Qt::FastTransformation);
 
-    QFile textFile(":/Text/Words1.txt");
+    wordBase.resize(35);
+    int i = 0;
+
+    QFile textSymbols(":/Text/Symbols.txt");
+    if(textSymbols.open(QIODevice::ReadOnly |QIODevice::Text)){
+        QString someString = textSymbols.readLine();
+        qDebug() << someString.size();
+
+        someString.remove('\n');
+        for(QChar* ptr=someString.begin();ptr!=someString.end();ptr++){
+            qDebug() << *ptr;
+            qDebug() << i++;
+            symbols.push_back(*ptr);
+        }
+    }
+    qDebug() <<symbols.size();
+    QFile textFile(":/Text/Words.txt");
     if(textFile.open(QIODevice::ReadOnly |QIODevice::Text))
         {
             while(!textFile.atEnd())
             {
-                checkWord = textFile.readLine();
-                checkWord.remove('\n');
-
-                stringWord.push_back(checkWord);
-                checkWord.clear();
+                checkWord = textFile.readLine();//Читаем файл построчно QString.
+                checkWord.remove('\n');         //Удаляем признак конца строки '\n'
+                for(QChar *ptr = checkWord.begin(); ptr!=checkWord.end(); ptr++)
+                {
+                    if(symbols.indexOf(*ptr)>index) //Проверяем индекс каждой буквы по нашему вектору.
+                    {
+                        index = symbols.indexOf(*ptr);//Присваиваем максимальный индекс нашего слова согласно вектору букв.
+                    }
+                }
+                if(index>0){
+                    wordBase[index].push_back(checkWord); //помещаем это слово в пустой массив согласно индексу.
+                }
+                index = -1;                               //возвращаем индекс в исходное состояние.
             }
         }
         else
         {
             QMessageBox::warning(this,"Внимание", "Файл поврежден или отсутствует.");
         }
-    checkWord = stringWord[NextWord];
-    qDebug() << stringWord.size();
-    wordBase.resize(35);
-    for(auto&X:stringWord){
-        qDebug() << X;
-        for(QChar *ptr = X.begin(); ptr!=X.end(); ptr++){
-            qDebug() << *ptr;
-            if(symbols.indexOf(*ptr)>index){
-                qDebug() << symbols.indexOf(*ptr);
-                index = symbols.indexOf(*ptr);
-            }
-        }
-        if(index<0){
-            qDebug() <<index;
-        }
-        wordBase[index].push_back(X);
-
-        index = -1;
-    }
-//    QString Z = "ASDA";
-//    Z.fromUtf8()
+    qDebug() << wordBase[0].size();
+    qDebug() << wordBase[1].size();
+    qDebug() << wordBase[2].size();
+    qDebug() << wordBase[3].size();
+    qDebug() << wordBase[4].size();
 
 }
 
@@ -159,6 +167,8 @@ void Keyboard::startGame()
         idTimer=startTimer(1000);
         gameOn=true;
         this->setFocus();
+        index = 2;
+        checkWord=wordBase[index][qrand()%wordBase[index].size()];
         emit sendWord(checkWord);
     }
 }
@@ -520,6 +530,7 @@ void Keyboard::keyPressEvent(QKeyEvent *event)
             }
             else {
                 hit = false;
+                mistake = true;
                 emit printWord(myWord);
                 repaint();
             }
@@ -550,20 +561,28 @@ void Keyboard::keyReleaseEvent(QKeyEvent *event)
 
 void Keyboard::timerEvent(QTimerEvent *event)
 {
-         if(checkWord==myWord){
-             NextWord++;
-             if(NextWord==stringWord.size()){
-                 QMessageBox::information(this,"Конец", "Поздравляю! Слова закончились!");
-                 killTimer(idTimer);
-                 gameOn=false;
-                 return;
-             }
-             checkWord = stringWord[NextWord];
-             emit sendWord(checkWord);
-             qDebug() << checkWord;
-             myWord.clear();
-             emit printWord(myWord);
-         }
-
+    int index2;
+    if(checkWord==myWord){
+        hit = false;
+        if (!mistake){
+            index2 = wordBase[index].indexOf(checkWord);
+            if(wordBase[index].size()!=1){
+                swap(wordBase[index][index2],wordBase[index][wordBase[index].size()-1]);
+                wordBase[index].pop_back();
+            }
+            else {
+                wordBase[index].pop_back();
+                index++;
+            }
+        }
+        else {
+            mistake=false;
+        }
+        checkWord=wordBase[index][qrand()%wordBase[index].size()];
+        emit sendWord(checkWord);
+        myWord.clear();
+        emit printWord(myWord);
+        hit = true;
+    }
 
 }

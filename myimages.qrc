@@ -111,6 +111,6 @@
     </qresource>
     <qresource prefix="/Text">
         <file>Words.txt</file>
-        <file>Words1.txt</file>
+        <file>Symbols.txt</file>
     </qresource>
 </RCC>

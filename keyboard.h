@@ -10,11 +10,13 @@
 #include <QKeyEvent>
 #include <QKeySequence>
 #include <QVector>
+#include <QChar>
 #include <QFile>
 #include <QTimer>
 #include <QThread>
 #include <QMessageBox>
 #include <QTextStream>
+#include <QTextCodec>
 
 class Keyboard : public QWidget
 {
@@ -30,8 +32,9 @@ class Keyboard : public QWidget
     int idTimer;
     bool gameOn = false;
     uint charNumbers = 3;
+    bool mistake = false;
     int index = -1;
-    QVector<QChar> symbols{'п','р','о','а','е','н','г','м','и','т','ь','л','в','к','ш','с','б','ы','д','у','щ','ч','ю','ф','ж','ц','з','я','э','й','х','ъ','-'};
+    QVector<QChar> symbols;/*{'п','р','о','а','е','н','г','м','и','т','ь','л','в','к','ш','с','б','ы','д','у','щ','ч','ю','ф','ж','ц','з','я','э','й','х','ъ','-'};*/
     QVector <QVector<QString>> wordBase;
 public:
     explicit Keyboard(QWidget *parent = nullptr);

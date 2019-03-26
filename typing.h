@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QString>
+#include <QTime>
 
 namespace Ui {
 class Typing;

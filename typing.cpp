@@ -8,6 +8,8 @@ Typing::Typing(QWidget *parent) :
     ui->setupUi(this);
     setFixedSize(1060,650);
     setMaximumSize(1280,768);
+    QTime midnight(0,0,0);
+    qsrand(midnight.secsTo(QTime::currentTime()));
 }
 
 Typing::~Typing()
