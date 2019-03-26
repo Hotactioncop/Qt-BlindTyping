@@ -113,22 +113,21 @@ Keyboard::Keyboard(QWidget *parent) : QWidget(parent)
     pixes[2][32] = QPixmap(":/Images/Image/DOTfalse.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[2][33] = QPixmap(":/Images/Image/SPACEfalse.png").scaled(538,84,Qt::KeepAspectRatio,Qt::FastTransformation);
 
-    wordBase.resize(35);
-    int i = 0;
+    /*Имеем два вектора QChar и один QString.
+     * 1ый вектор QChar содержит буквы алфавита расположенные от центра к краям. Необходим для вывода клавиш на экран в данной последовательности.
+     * 2ой вектор Qchar содержит буквы алфавита, отсортированные по иерархии расположения на клавиатуре. Необходим для обращения символу из первого вектора
+     * для определения местоположения и вывода клавиши на экран.
+     * 3ий вектор QString содержит вектор слов, отсортированных в последовательности согласно первому вектору букв.*/
 
+    wordBase.resize(35);
     QFile textSymbols(":/Text/Symbols.txt");
     if(textSymbols.open(QIODevice::ReadOnly |QIODevice::Text)){
-        QString someString = textSymbols.readLine();
-        qDebug() << someString.size();
-
+        QString someString = textSymbols.readLine();            //Файл содержит 32 буквы алфавита, расположенные от центра клавиатуры к краям
         someString.remove('\n');
         for(QChar* ptr=someString.begin();ptr!=someString.end();ptr++){
-            qDebug() << *ptr;
-            qDebug() << i++;
-            symbols.push_back(*ptr);
+            symbols.push_back(*ptr);                            //Побуквенно переносим в вектор
         }
     }
-    qDebug() <<symbols.size();
     QFile textFile(":/Text/Words.txt");
     if(textFile.open(QIODevice::ReadOnly |QIODevice::Text))
         {
@@ -153,11 +152,14 @@ Keyboard::Keyboard(QWidget *parent) : QWidget(parent)
         {
             QMessageBox::warning(this,"Внимание", "Файл поврежден или отсутствует.");
         }
-    qDebug() << wordBase[0].size();
-    qDebug() << wordBase[1].size();
-    qDebug() << wordBase[2].size();
-    qDebug() << wordBase[3].size();
-    qDebug() << wordBase[4].size();
+    QFile placeSymbols(":/Text/PlaceOnKeyboard.txt");
+    if(placeSymbols.open(QIODevice::ReadOnly |QIODevice::Text)){
+        QString someString = placeSymbols.readLine();       //Файл содержит 32 буквы алфавита, расположенные по иерархии расположения на клавиатуре(йцукен...фывапр...ячсмит...)
+        someString.remove('\n');                            //Побуквенно переносим в вектор
+        for(QChar* ptr=someString.begin();ptr!=someString.end();ptr++){
+            place.push_back(*ptr);
+        }
+    }
 
 }
 
@@ -167,78 +169,68 @@ void Keyboard::startGame()
         idTimer=startTimer(1000);
         gameOn=true;
         this->setFocus();
-        index = 2;
-        checkWord=wordBase[index][qrand()%wordBase[index].size()];
-        emit sendWord(checkWord);
+        index = 2;      //Устанавливаем индекс на 2 для вывода на экран всех предшестующих букв клавиатуры и вывода слова, состоящего из этих букв. п-0, р-1, о-2.
+        checkWord=wordBase[index][qrand()%wordBase[index].size()];      //произвольно выбираем слово из нашего вектора.
+        emit sendWord(checkWord);                                       //передаем слово для вывода на верхний экран.
     }
 }
 
 
 void Keyboard::paintEvent(QPaintEvent *event)
 {
+    /*Выводим на экран все клавиши, до значения index включительно.
+     * Определяем какой последовательности на клавиатуре соответствует каждая из букв до index.
+     * Если текущую букву пользователь не вводил с клавиатуры, то выводим на экран дефолтный Pixmap - содержится в векторе pixes[0][...]
+     * Как только доходим до буквы, которую пользователь ввел с клавиатуры, проверяем, если она совпадает с текущей в checkWord (hit==true),
+     * то выводим на экран положительный Pixmap - содержится в векторе pixes[1][...]
+     * Если пользователь ввел неверную букву, то выводим на экран отрицательный Pixmap - содержится в векторе pixes[2][...]*/
     QPainter pens(this);
-    int i = 0;
-    for(int j = 0; j<12; j++){
-        if (j==buttPos){
-            if(hit){
-                pens.drawPixmap(i,5,pixes[1][j]);
-            }
-            else {
-                pens.drawPixmap(i,5,pixes[2][j]);
-            }
-        }
-        else {
-            pens.drawPixmap(i,5,pixes[0][j]);
-        }
-        i+=86;
+    if(!gameOn){
+        index =31;
     }
-    i=30;
-    for(int j = 12; j<23; j++){
-        if (j==buttPos){
-            if(hit){
-                pens.drawPixmap(i,93,pixes[1][j]);
+    for(QChar*ptr=symbols.begin(); ptr<=(symbols.begin()+index); ptr++){
+        int keep = place.indexOf(*ptr);
+        if(keep<12){
+            if (keep==buttPos){
+                if(hit){
+                    pens.drawPixmap(2*keep+keep*pixes[0][0].width(),5,pixes[1][keep]);
+                }
+                else {
+                    pens.drawPixmap(2*keep+keep*pixes[0][0].width(),5,pixes[2][keep]);
+                }
             }
             else {
-                pens.drawPixmap(i,93,pixes[2][j]);
+                pens.drawPixmap(2*keep+keep*pixes[0][0].width(),5,pixes[0][keep]);
             }
         }
-        else {
-            pens.drawPixmap(i,93,pixes[0][j]);
-        }
-        i+=86;
-    }
-    i=70;
-    for(int j = 23; j<33; j++){
-        if (j==buttPos){
-            if(hit){
-                pens.drawPixmap(i,181,pixes[1][j]);
+        else if(keep<23){
+            if (keep==buttPos){
+                if(hit){
+                    pens.drawPixmap(30+2*(keep-12)+(keep-12)*pixes[0][0].width(),10+pixes[0][0].height(),pixes[1][keep]);
+                }
+                else {
+                    pens.drawPixmap(30+2*(keep-12)+(keep-12)*pixes[0][0].width(),10+pixes[0][0].height(),pixes[2][keep]);
+                }
             }
             else {
-                pens.drawPixmap(i,181,pixes[2][j]);
+                pens.drawPixmap(30+2*(keep-12)+(keep-12)*pixes[0][0].width(),10+pixes[0][0].height(),pixes[0][keep]);
             }
         }
-        else {
-            pens.drawPixmap(i,181,pixes[0][j]);
-        }
-        i+=86;
-    }
-    i = 195;
-    for (int j = 33; j<34; j++){
-        if (j==buttPos){
-            if(hit){
-                pens.drawPixmap(i,267,pixes[1][j]);
+        else{
+            if (keep==buttPos){
+                if(hit){
+                    pens.drawPixmap(70+2*(keep-22)+(keep-22)*pixes[0][0].width(),15+2*pixes[0][0].height(),pixes[1][keep]);
+                }
+                else {
+                    pens.drawPixmap(70+2*(keep-22)+(keep-22)*pixes[0][0].width(),15+2*pixes[0][0].height(),pixes[2][keep]);
+                }
             }
             else {
-                pens.drawPixmap(i,267,pixes[2][j]);
+                pens.drawPixmap(70+2*(keep-23)+(keep-23)*pixes[0][0].width(),15+2*pixes[0][0].height(),pixes[0][keep]);
             }
         }
-        else {
-            pens.drawPixmap(i,267,pixes[0][j]);
-        }
-        i+=86;
     }
 }
-
 
 void Keyboard::keyPressEvent(QKeyEvent *event)
 {
@@ -563,7 +555,6 @@ void Keyboard::timerEvent(QTimerEvent *event)
 {
     int index2;
     if(checkWord==myWord){
-        hit = false;
         if (!mistake){
             index2 = wordBase[index].indexOf(checkWord);
             if(wordBase[index].size()!=1){
@@ -582,7 +573,6 @@ void Keyboard::timerEvent(QTimerEvent *event)
         emit sendWord(checkWord);
         myWord.clear();
         emit printWord(myWord);
-        hit = true;
+        repaint();
     }
-
 }

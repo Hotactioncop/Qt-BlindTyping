@@ -112,5 +112,6 @@
     <qresource prefix="/Text">
         <file>Words.txt</file>
         <file>Symbols.txt</file>
+        <file>PlaceOnKeyboard.txt</file>
     </qresource>
 </RCC>

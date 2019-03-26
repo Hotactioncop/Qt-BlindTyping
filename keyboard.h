@@ -34,7 +34,8 @@ class Keyboard : public QWidget
     uint charNumbers = 3;
     bool mistake = false;
     int index = -1;
-    QVector<QChar> symbols;/*{'п','р','о','а','е','н','г','м','и','т','ь','л','в','к','ш','с','б','ы','д','у','щ','ч','ю','ф','ж','ц','з','я','э','й','х','ъ','-'};*/
+    QVector<QChar> symbols;
+    QVector<QChar> place;
     QVector <QVector<QString>> wordBase;
 public:
     explicit Keyboard(QWidget *parent = nullptr);
