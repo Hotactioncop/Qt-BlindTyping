@@ -119,7 +119,7 @@ Keyboard::Keyboard(QWidget *parent) : QWidget(parent)
      * для определения местоположения и вывода клавиши на экран.
      * 3ий вектор QString содержит вектор слов, отсортированных в последовательности согласно первому вектору букв.*/
 
-    wordBase.resize(35);
+    wordBase.resize(36);
     QFile textSymbols(":/Text/Symbols.txt");
     if(textSymbols.open(QIODevice::ReadOnly |QIODevice::Text)){
         QString someString = textSymbols.readLine();            //Файл содержит 32 буквы алфавита, расположенные от центра клавиатуры к краям
@@ -160,6 +160,11 @@ Keyboard::Keyboard(QWidget *parent) : QWidget(parent)
             place.push_back(*ptr);
         }
     }
+    int sad=0;
+//    for(auto&X:wordBase){
+//        qDebug() << sad << X.size() << symbols[sad];
+//        sad++;
+//    }
 
 }
 
@@ -230,11 +235,32 @@ void Keyboard::paintEvent(QPaintEvent *event)
             }
         }
     }
+    //Выводимт на экран клавишу, которую пользователь ввел с клавиатуры, но не совпадающую ни с одной буквой из представленных на экране(до значения index в векторе symbols)
+    if(buttPos<=33){
+        if(symbols.indexOf(place[buttPos])>index){          //Если пользовательная клавиша находится за пределами выведенных на экран клавиш(больше чем index вектора symbols)
+            if(buttPos<12){
+                pens.drawPixmap(2*buttPos+buttPos*pixes[0][0].width(),5,pixes[2][buttPos]); //Выводим на экран клавишу из первой строки
+            }
+            else if(buttPos<23){
+                pens.drawPixmap(30+2*(buttPos-12)+(buttPos-12)*pixes[0][0].width(),10+pixes[0][0].height(),pixes[2][buttPos]);//Выводим на экран клавишу из второй строки
+            }
+            else if(buttPos<33){
+                pens.drawPixmap(70+2*(buttPos-23)+(buttPos-23)*pixes[0][0].width(),15+2*pixes[0][0].height(),pixes[2][buttPos]);//Выводим на экран клавишу из третьей строки
+            }
+            else if(buttPos==33){
+                pens.drawPixmap(172,20+3*pixes[0][0].height(),pixes[2][buttPos]);//Выводим на экран пробел
+            }
+        }
+    }
 }
 
 void Keyboard::keyPressEvent(QKeyEvent *event)
 {
     if(hit){
+        if(myWord.size()<checkWord.size())
+        {
+
+        }
         if (event->modifiers()==Qt::ShiftModifier ){
             if (event->key()==Qt::Key_Q){
                 myWord+="Й";
@@ -506,24 +532,22 @@ void Keyboard::keyPressEvent(QKeyEvent *event)
         if (event->key()==Qt::Key_Space){
             myWord+=" ";
             buttPos=33;
-            emit printWord(myWord);
         }
         if (event->key()==Qt::Key_Backspace){
             if(myWord.size()!=0){
                 myWord.remove(myWord.size()-1,1);
-                emit printWord(myWord);
             }
         }
         if(myWord.size()<=checkWord.size() && myWord.size()!=0){
             if(myWord.at(myWord.size()-1)==checkWord.at(myWord.size()-1)){
                 hit = true;
-                emit printWord(myWord);
+                emit sendSignal(true);
                 repaint();
             }
             else {
                 hit = false;
                 mistake = true;
-                emit printWord(myWord);
+                emit sendSignal(false);
                 repaint();
             }
         }
@@ -532,7 +556,7 @@ void Keyboard::keyPressEvent(QKeyEvent *event)
         if (event->key()==Qt::Key_Backspace){
             if(myWord.size()!=0){
                 myWord.remove(myWord.size()-1,1);
-                emit printWord(myWord);
+                emit sendSignal(true);
                 buttPos = 100;
                 hit = true;
                 repaint();
@@ -572,7 +596,6 @@ void Keyboard::timerEvent(QTimerEvent *event)
         checkWord=wordBase[index][qrand()%wordBase[index].size()];
         emit sendWord(checkWord);
         myWord.clear();
-        emit printWord(myWord);
         repaint();
     }
 }

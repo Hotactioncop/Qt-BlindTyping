@@ -19,7 +19,6 @@ public:
 
 private:
     Ui::Typing *ui;
-
 };
 
 #endif // TYPING_H

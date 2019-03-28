@@ -42,7 +42,7 @@ public:
 
 signals:
     void sendWord(QString);
-    void printWord(QString);
+    void sendSignal(bool);
 
 public slots:
     void startGame();

@@ -27,11 +27,13 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         typing.cpp \
-    keyboard.cpp
+    keyboard.cpp \
+    show.cpp
 
 HEADERS += \
         typing.h \
-    keyboard.h
+    keyboard.h \
+    show.h
 
 FORMS += \
         typing.ui

@@ -14,8 +14,6 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QGridLayout>
-#include <QtWidgets/QHBoxLayout>
-#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
@@ -24,6 +22,7 @@
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 #include "keyboard.h"
+#include "show.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -34,11 +33,8 @@ public:
     QWidget *centralWidget;
     QGridLayout *gridLayout;
     QVBoxLayout *verticalLayout;
-    QLabel *Wordlabel;
-    QHBoxLayout *KeyboardLayout;
+    Show *ShowWidget;
     Keyboard *KeyboardWidget;
-    QHBoxLayout *TypingLayout;
-    QLabel *label;
     QMenuBar *menuBar;
     QMenu *menu;
     QToolBar *mainToolBar;
@@ -70,23 +66,12 @@ public:
         verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(6);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-        Wordlabel = new QLabel(centralWidget);
-        Wordlabel->setObjectName(QString::fromUtf8("Wordlabel"));
-        Wordlabel->setMinimumSize(QSize(0, 100));
-        Wordlabel->setMaximumSize(QSize(16777215, 100));
-        QFont font;
-        font.setPointSize(30);
-        Wordlabel->setFont(font);
-        Wordlabel->setFrameShape(QFrame::Box);
-        Wordlabel->setFrameShadow(QFrame::Sunken);
-        Wordlabel->setAlignment(Qt::AlignCenter);
+        ShowWidget = new Show(centralWidget);
+        ShowWidget->setObjectName(QString::fromUtf8("ShowWidget"));
+        ShowWidget->setMinimumSize(QSize(0, 150));
 
-        verticalLayout->addWidget(Wordlabel);
+        verticalLayout->addWidget(ShowWidget);
 
-        KeyboardLayout = new QHBoxLayout();
-        KeyboardLayout->setSpacing(6);
-        KeyboardLayout->setObjectName(QString::fromUtf8("KeyboardLayout"));
-        KeyboardLayout->setSizeConstraint(QLayout::SetDefaultConstraint);
         KeyboardWidget = new Keyboard(centralWidget);
         KeyboardWidget->setObjectName(QString::fromUtf8("KeyboardWidget"));
         QSizePolicy sizePolicy1(QSizePolicy::Minimum, QSizePolicy::Minimum);
@@ -98,30 +83,7 @@ public:
         KeyboardWidget->setMaximumSize(QSize(16777215, 16777215));
         KeyboardWidget->setLayoutDirection(Qt::LeftToRight);
 
-        KeyboardLayout->addWidget(KeyboardWidget);
-
-
-        verticalLayout->addLayout(KeyboardLayout);
-
-        TypingLayout = new QHBoxLayout();
-        TypingLayout->setSpacing(6);
-        TypingLayout->setObjectName(QString::fromUtf8("TypingLayout"));
-        label = new QLabel(centralWidget);
-        label->setObjectName(QString::fromUtf8("label"));
-        label->setMinimumSize(QSize(0, 100));
-        label->setMaximumSize(QSize(16777215, 100));
-        QFont font1;
-        font1.setFamily(QString::fromUtf8("Times New Roman"));
-        font1.setPointSize(30);
-        label->setFont(font1);
-        label->setFrameShape(QFrame::Box);
-        label->setFrameShadow(QFrame::Sunken);
-        label->setAlignment(Qt::AlignCenter);
-
-        TypingLayout->addWidget(label);
-
-
-        verticalLayout->addLayout(TypingLayout);
+        verticalLayout->addWidget(KeyboardWidget);
 
 
         gridLayout->addLayout(verticalLayout, 0, 0, 1, 1);
@@ -145,9 +107,9 @@ public:
         mainToolBar->addAction(action);
 
         retranslateUi(Typing);
-        QObject::connect(KeyboardWidget, SIGNAL(sendWord(QString)), Wordlabel, SLOT(setText(QString)));
-        QObject::connect(KeyboardWidget, SIGNAL(printWord(QString)), label, SLOT(setText(QString)));
         QObject::connect(action, SIGNAL(triggered()), KeyboardWidget, SLOT(startGame()));
+        QObject::connect(KeyboardWidget, SIGNAL(sendWord(QString)), ShowWidget, SLOT(getword(QString)));
+        QObject::connect(KeyboardWidget, SIGNAL(sendSignal(bool)), ShowWidget, SLOT(getbool(bool)));
 
         QMetaObject::connectSlotsByName(Typing);
     } // setupUi
@@ -156,8 +118,6 @@ public:
     {
         Typing->setWindowTitle(QApplication::translate("Typing", "\320\241\320\273\320\265\320\277\320\260\321\217 \320\277\320\265\321\207\320\260\321\202\321\214", nullptr));
         action->setText(QApplication::translate("Typing", "\320\241\321\202\320\260\321\200\321\202", nullptr));
-        Wordlabel->setText(QString());
-        label->setText(QString());
         menu->setTitle(QApplication::translate("Typing", "\320\236\320\277\321\206\320\270\320\270", nullptr));
     } // retranslateUi
 

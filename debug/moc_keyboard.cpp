@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Keyboard_t {
     QByteArrayData data[5];
-    char stringdata0[39];
+    char stringdata0[40];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -34,11 +34,11 @@ static const qt_meta_stringdata_Keyboard_t qt_meta_stringdata_Keyboard = {
 QT_MOC_LITERAL(0, 0, 8), // "Keyboard"
 QT_MOC_LITERAL(1, 9, 8), // "sendWord"
 QT_MOC_LITERAL(2, 18, 0), // ""
-QT_MOC_LITERAL(3, 19, 9), // "printWord"
-QT_MOC_LITERAL(4, 29, 9) // "startGame"
+QT_MOC_LITERAL(3, 19, 10), // "sendSignal"
+QT_MOC_LITERAL(4, 30, 9) // "startGame"
 
     },
-    "Keyboard\0sendWord\0\0printWord\0startGame"
+    "Keyboard\0sendWord\0\0sendSignal\0startGame"
 };
 #undef QT_MOC_LITERAL
 
@@ -64,7 +64,7 @@ static const uint qt_meta_data_Keyboard[] = {
 
  // signals: parameters
     QMetaType::Void, QMetaType::QString,    2,
-    QMetaType::Void, QMetaType::QString,    2,
+    QMetaType::Void, QMetaType::Bool,    2,
 
  // slots: parameters
     QMetaType::Void,
@@ -79,7 +79,7 @@ void Keyboard::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->sendWord((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 1: _t->printWord((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 1: _t->sendSignal((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 2: _t->startGame(); break;
         default: ;
         }
@@ -93,8 +93,8 @@ void Keyboard::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
             }
         }
         {
-            using _t = void (Keyboard::*)(QString );
-            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Keyboard::printWord)) {
+            using _t = void (Keyboard::*)(bool );
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Keyboard::sendSignal)) {
                 *result = 1;
                 return;
             }
@@ -150,7 +150,7 @@ void Keyboard::sendWord(QString _t1)
 }
 
 // SIGNAL 1
-void Keyboard::printWord(QString _t1)
+void Keyboard::sendSignal(bool _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 1, _a);
