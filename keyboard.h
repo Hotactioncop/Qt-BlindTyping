@@ -34,9 +34,10 @@ class Keyboard : public QWidget
     QVector<QChar> symbols;              //Вектор отсортированных букв, по нарастающей сложности(от центра клавиатуры П Р О, к краям Й Ъ Я Ю)
     QVector<QChar> place;                //Вектор отсортированных букв, согласно расположению на клавиатуре(йцукен...фывапр...ячсмит...), для вывода на экран клавиатуры
     QVector <QVector<QString>> wordBase; //База слов, отсортированных по вектору symbols (сортировка по принципу наличия в слове буквы, имеющей максимальный индекс в векторе symbols)
-    QVector <int> levelProgress;
-//    QVector <int> levelProgress{100,200,300,400,500,600,700,700,700,700,700,700,700,700,700,700,700,700,700,700,700,700,700,700,700,700,700,700,700};
-    int progress = 0;
+    QVector <int> levelProgress;         //Прогресс
+    int wellWord = 0;                    //Правильно введедено слов на текущем уровне сложности
+    int Score = 0;                       //Набрано очков
+    int progress = 0;                    //Прогресс на текущем уровне
 public:
     explicit Keyboard(QWidget *parent = nullptr);
 
@@ -44,11 +45,12 @@ signals:
     void sendWord(QString);              //Передаем проверочное слово checkWord на виджет - для вывода на экран
     void sendSignal(bool);               //Передаем признак наличия ошибки
     void correctChar(uint);              //Передаем количество букв в нашем слове myWord
-    void sendProgress(int);
+    void sendProgress(int);              //Передаем прогресс за текущий уровень
+    void sendScore(int);                 //Передаем количество набранных очков
 
 public slots:
     void startGame();                    //Слот Начала игры. Вызывается при нажатии пользователем кнопки "Старт".
-    void nextLevel();
+    void nextLevel();                    //Переходим на следующий уровень(index++)
 
     // QWidget interface
 protected:

@@ -40,7 +40,7 @@ public:
     Keyboard *KeyboardWidget;
     QVBoxLayout *verticalLayout_2;
     QPushButton *startButton;
-    QPushButton *NextButton_;
+    QPushButton *NextButton;
     QPushButton *ExitButton;
     QSpacerItem *verticalSpacer;
     QLabel *label;
@@ -110,12 +110,12 @@ public:
 
         verticalLayout_2->addWidget(startButton);
 
-        NextButton_ = new QPushButton(centralWidget);
-        NextButton_->setObjectName(QString::fromUtf8("NextButton_"));
-        NextButton_->setMinimumSize(QSize(160, 30));
-        NextButton_->setMaximumSize(QSize(160, 30));
+        NextButton = new QPushButton(centralWidget);
+        NextButton->setObjectName(QString::fromUtf8("NextButton"));
+        NextButton->setMinimumSize(QSize(160, 30));
+        NextButton->setMaximumSize(QSize(160, 30));
 
-        verticalLayout_2->addWidget(NextButton_);
+        verticalLayout_2->addWidget(NextButton);
 
         ExitButton = new QPushButton(centralWidget);
         ExitButton->setObjectName(QString::fromUtf8("ExitButton"));
@@ -168,8 +168,9 @@ public:
         QObject::connect(KeyboardWidget, SIGNAL(sendSignal(bool)), ShowWidget, SLOT(getbool(bool)));
         QObject::connect(KeyboardWidget, SIGNAL(correctChar(uint)), ShowWidget, SLOT(getcorrect(uint)));
         QObject::connect(ExitButton, SIGNAL(clicked()), Typing, SLOT(close()));
-        QObject::connect(NextButton_, SIGNAL(clicked()), KeyboardWidget, SLOT(nextLevel()));
+        QObject::connect(NextButton, SIGNAL(clicked()), KeyboardWidget, SLOT(nextLevel()));
         QObject::connect(KeyboardWidget, SIGNAL(sendProgress(int)), progressBar, SLOT(setValue(int)));
+        QObject::connect(KeyboardWidget, SIGNAL(sendScore(int)), lcdNumber, SLOT(display(int)));
 
         QMetaObject::connectSlotsByName(Typing);
     } // setupUi
@@ -178,7 +179,7 @@ public:
     {
         Typing->setWindowTitle(QApplication::translate("Typing", "\320\241\320\273\320\265\320\277\320\260\321\217 \320\277\320\265\321\207\320\260\321\202\321\214", nullptr));
         startButton->setText(QApplication::translate("Typing", "\320\235\320\260\321\207\320\260\321\202\321\214", nullptr));
-        NextButton_->setText(QApplication::translate("Typing", "\320\241\320\273\320\265\320\264\321\203\321\216\321\211\320\260\321\217 \320\261\321\203\320\272\320\262\320\260", nullptr));
+        NextButton->setText(QApplication::translate("Typing", "\320\241\320\273\320\265\320\264\321\203\321\216\321\211\320\260\321\217 \320\261\321\203\320\272\320\262\320\260", nullptr));
         ExitButton->setText(QApplication::translate("Typing", "\320\222\321\213\320\271\321\202\320\270", nullptr));
         label->setText(QApplication::translate("Typing", "\320\221\320\260\320\273\320\273\321\213", nullptr));
     } // retranslateUi

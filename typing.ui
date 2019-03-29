@@ -108,7 +108,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="NextButton_">
+       <widget class="QPushButton" name="NextButton">
         <property name="minimumSize">
          <size>
           <width>160</width>
@@ -246,6 +246,7 @@
     <signal>sendSignal(bool)</signal>
     <signal>correctChar(uint)</signal>
     <signal>sendProgress(int)</signal>
+    <signal>sendScore(int)</signal>
     <slot>startGame()</slot>
     <slot>nextLevel()</slot>
    </slots>
@@ -345,7 +346,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>NextButton_</sender>
+   <sender>NextButton</sender>
    <signal>clicked()</signal>
    <receiver>KeyboardWidget</receiver>
    <slot>nextLevel()</slot>
@@ -373,6 +374,22 @@
     <hint type="destinationlabel">
      <x>299</x>
      <y>53</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>KeyboardWidget</sender>
+   <signal>sendScore(int)</signal>
+   <receiver>lcdNumber</receiver>
+   <slot>display(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>539</x>
+     <y>425</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>677</x>
+     <y>393</y>
     </hint>
    </hints>
   </connection>

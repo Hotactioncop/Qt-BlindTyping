@@ -180,6 +180,21 @@ void Keyboard::startGame()
         checkWord=wordBase[index][qrand()%wordBase[index].size()];      //произвольно выбираем слово из нашего вектора.
         emit sendWord(checkWord);                                       //передаем слово для вывода на верхний экран.
     }
+    else{
+        index = 2;
+        checkWord=wordBase[index][qrand()%wordBase[index].size()];
+        emit sendWord(checkWord);
+        missChar = false;
+        mistake = false;
+        keyHold=false;
+        myWord.clear();
+        progress = 0;
+        Score = 0;
+        wellWord = 0;
+        emit sendWord(checkWord);
+        emit sendScore(Score);
+        emit sendProgress(progress);
+    }
     this->setFocus();
 }
 
@@ -192,6 +207,8 @@ void Keyboard::nextLevel()
         mistake = false;
         keyHold=false;
         myWord.clear();
+        progress = 0;
+        emit sendProgress(progress);
         emit sendWord(checkWord);                                       //передаем слово для вывода на верхний экран.
         repaint();
     }
@@ -602,29 +619,26 @@ void Keyboard::timerEvent(QTimerEvent *event)
     if(checkWord==myWord){
         if (!mistake){
             progress += checkWord.size();
+            Score+=progress;
             index2 = wordBase[index].indexOf(checkWord);
-            if(wordBase[index].size()!=1){
-                swap(wordBase[index][index2],wordBase[index][wordBase[index].size()-1]);
-                wordBase[index].pop_back();
-            }
-            else {
-                wordBase[index].pop_back();
-                index++;
-                progress=0;
-            }
+            swap(wordBase[index][index2],wordBase[index][wordBase[index].size()-wellWord-1]);
+            wellWord++;
         }
         else {
             progress += checkWord.size()/2;
+            Score+=progress;
             mistake=false;
         }
         if(progress>=levelProgress[index]){
             index++;
+            wellWord = 0;
             progress = 0;
         }
         emit sendProgress (progress*100/levelProgress[index]);
-        checkWord=wordBase[index][qrand()%wordBase[index].size()];
+        checkWord=wordBase[index][qrand()%(wordBase[index].size()-wellWord)];
         keyHold=false;
         emit sendWord(checkWord);
+        emit sendScore(Score);
         myWord.clear();
         repaint();
     }
