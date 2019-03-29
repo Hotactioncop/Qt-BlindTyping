@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/Text">
+        <file>PlaceOnKeyboard.txt</file>
+        <file>Symbols.txt</file>
+        <file>Words.txt</file>
+    </qresource>
+</RCC>

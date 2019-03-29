@@ -18,8 +18,8 @@ Keyboard::Keyboard(QWidget *parent) : QWidget(parent)
     pixes[0][7] = QPixmap(":/Images/Image/I.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[0][8] = QPixmap(":/Images/Image/O.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[0][9] = QPixmap(":/Images/Image/P.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
-    pixes[0][10] = QPixmap(":/Images/Image/{.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
-    pixes[0][11] = QPixmap(":/Images/Image/}.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
+    pixes[0][10] = QPixmap(":/Images/Image/BraceLeft.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
+    pixes[0][11] = QPixmap(":/Images/Image/BraceRight.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[0][12] = QPixmap(":/Images/Image/A.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[0][13] = QPixmap(":/Images/Image/S.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[0][14] = QPixmap(":/Images/Image/D.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
@@ -29,8 +29,8 @@ Keyboard::Keyboard(QWidget *parent) : QWidget(parent)
     pixes[0][18] = QPixmap(":/Images/Image/J.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[0][19] = QPixmap(":/Images/Image/K.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[0][20] = QPixmap(":/Images/Image/L.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
-    pixes[0][21] = QPixmap(":/Images/Image/;.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
-    pixes[0][22] = QPixmap(":/Images/Image/'.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
+    pixes[0][21] = QPixmap(":/Images/Image/Semicolon.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
+    pixes[0][22] = QPixmap(":/Images/Image/Apostrophe.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[0][23] = QPixmap(":/Images/Image/Z.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[0][24] = QPixmap(":/Images/Image/X.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[0][25] = QPixmap(":/Images/Image/C.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
@@ -38,8 +38,8 @@ Keyboard::Keyboard(QWidget *parent) : QWidget(parent)
     pixes[0][27] = QPixmap(":/Images/Image/B.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[0][28] = QPixmap(":/Images/Image/N.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[0][29] = QPixmap(":/Images/Image/M.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
-    pixes[0][30] = QPixmap(":/Images/Image/,.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
-    pixes[0][31] = QPixmap(":/Images/Image/yu.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
+    pixes[0][30] = QPixmap(":/Images/Image/Less.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
+    pixes[0][31] = QPixmap(":/Images/Image/Greater.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[0][32] = QPixmap(":/Images/Image/DOT.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[0][33] = QPixmap(":/Images/Image/SPACE.png").scaled(538,84,Qt::KeepAspectRatio,Qt::FastTransformation);
 
@@ -53,8 +53,8 @@ Keyboard::Keyboard(QWidget *parent) : QWidget(parent)
     pixes[1][7] = QPixmap(":/Images/Image/Itrue.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[1][8] = QPixmap(":/Images/Image/Otrue.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[1][9] = QPixmap(":/Images/Image/Ptrue.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
-    pixes[1][10] = QPixmap(":/Images/Image/{true.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
-    pixes[1][11] = QPixmap(":/Images/Image/}true.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
+    pixes[1][10] = QPixmap(":/Images/Image/BraceLefttrue.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
+    pixes[1][11] = QPixmap(":/Images/Image/BraceRighttrue.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[1][12] = QPixmap(":/Images/Image/Atrue.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[1][13] = QPixmap(":/Images/Image/Strue.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[1][14] = QPixmap(":/Images/Image/Dtrue.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
@@ -64,8 +64,8 @@ Keyboard::Keyboard(QWidget *parent) : QWidget(parent)
     pixes[1][18] = QPixmap(":/Images/Image/Jtrue.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[1][19] = QPixmap(":/Images/Image/Ktrue.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[1][20] = QPixmap(":/Images/Image/Ltrue.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
-    pixes[1][21] = QPixmap(":/Images/Image/;true.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
-    pixes[1][22] = QPixmap(":/Images/Image/'true.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
+    pixes[1][21] = QPixmap(":/Images/Image/Semicolontrue.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
+    pixes[1][22] = QPixmap(":/Images/Image/Apostrophetrue.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[1][23] = QPixmap(":/Images/Image/Ztrue.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[1][24] = QPixmap(":/Images/Image/Xtrue.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[1][25] = QPixmap(":/Images/Image/Ctrue.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
@@ -73,8 +73,8 @@ Keyboard::Keyboard(QWidget *parent) : QWidget(parent)
     pixes[1][27] = QPixmap(":/Images/Image/Btrue.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[1][28] = QPixmap(":/Images/Image/Ntrue.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[1][29] = QPixmap(":/Images/Image/Mtrue.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
-    pixes[1][30] = QPixmap(":/Images/Image/,true.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
-    pixes[1][31] = QPixmap(":/Images/Image/YUtrue.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
+    pixes[1][30] = QPixmap(":/Images/Image/Lesstrue.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
+    pixes[1][31] = QPixmap(":/Images/Image/Greatertrue.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[1][32] = QPixmap(":/Images/Image/DOTtrue.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[1][33] = QPixmap(":/Images/Image/SPACEtrue.png").scaled(538,84,Qt::KeepAspectRatio,Qt::FastTransformation);
 
@@ -88,8 +88,8 @@ Keyboard::Keyboard(QWidget *parent) : QWidget(parent)
     pixes[2][7] = QPixmap(":/Images/Image/Ifalse.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[2][8] = QPixmap(":/Images/Image/Ofalse.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[2][9] = QPixmap(":/Images/Image/Pfalse.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
-    pixes[2][10] = QPixmap(":/Images/Image/{false.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
-    pixes[2][11] = QPixmap(":/Images/Image/}false.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
+    pixes[2][10] = QPixmap(":/Images/Image/BraceLeftfalse.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
+    pixes[2][11] = QPixmap(":/Images/Image/BraceRightfalse.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[2][12] = QPixmap(":/Images/Image/Afalse.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[2][13] = QPixmap(":/Images/Image/Sfalse.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[2][14] = QPixmap(":/Images/Image/Dfalse.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
@@ -99,8 +99,8 @@ Keyboard::Keyboard(QWidget *parent) : QWidget(parent)
     pixes[2][18] = QPixmap(":/Images/Image/Jfalse.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[2][19] = QPixmap(":/Images/Image/Kfalse.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[2][20] = QPixmap(":/Images/Image/Lfalse.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
-    pixes[2][21] = QPixmap(":/Images/Image/;false.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
-    pixes[2][22] = QPixmap(":/Images/Image/'false.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
+    pixes[2][21] = QPixmap(":/Images/Image/Semicolonfalse.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
+    pixes[2][22] = QPixmap(":/Images/Image/Apostrophefalse.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[2][23] = QPixmap(":/Images/Image/Zfalse.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[2][24] = QPixmap(":/Images/Image/Xfalse.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[2][25] = QPixmap(":/Images/Image/Cfalse.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
@@ -108,8 +108,8 @@ Keyboard::Keyboard(QWidget *parent) : QWidget(parent)
     pixes[2][27] = QPixmap(":/Images/Image/Bfalse.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[2][28] = QPixmap(":/Images/Image/Nfalse.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[2][29] = QPixmap(":/Images/Image/Mfalse.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
-    pixes[2][30] = QPixmap(":/Images/Image/,false.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
-    pixes[2][31] = QPixmap(":/Images/Image/YUfalse.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
+    pixes[2][30] = QPixmap(":/Images/Image/Lessfalse.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
+    pixes[2][31] = QPixmap(":/Images/Image/Greaterfalse.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[2][32] = QPixmap(":/Images/Image/DOTfalse.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[2][33] = QPixmap(":/Images/Image/SPACEfalse.png").scaled(538,84,Qt::KeepAspectRatio,Qt::FastTransformation);
 

@@ -9,12 +9,12 @@
         <file>Image/DOTfalse.png</file>
         <file>Image/DOTtrue.png</file>
         <file>Image/DOT.png</file>
-        <file>Image/YUfalse.png</file>
-        <file>Image/YUtrue.png</file>
-        <file>Image/yu.png</file>
-        <file>Image/,false.png</file>
-        <file>Image/,true.png</file>
-        <file>Image/,.png</file>
+        <file>Image/Greaterfalse.png</file>
+        <file>Image/Greatertrue.png</file>
+        <file>Image/Greater.png</file>
+        <file>Image/Lessalse.png</file>
+        <file>Image/Lesstrue.png</file>
+        <file>Image/Less.png</file>
         <file>Image/Mfalse.png</file>
         <file>Image/Mtrue.png</file>
         <file>Image/M.png</file>
@@ -36,12 +36,12 @@
         <file>Image/Zfalse.png</file>
         <file>Image/Ztrue.png</file>
         <file>Image/Z.png</file>
-        <file>Image/'false.png</file>
-        <file>Image/'true.png</file>
-        <file>Image/'.png</file>
-        <file>Image/;false.png</file>
-        <file>Image/;true.png</file>
-        <file>Image/;.png</file>
+        <file>Image/Apostrophefalse.png</file>
+        <file>Image/Apostrophetrue.png</file>
+        <file>Image/Apostrophe.png</file>
+        <file>Image/Semicolonfalse.png</file>
+        <file>Image/Semicolontrue.png</file>
+        <file>Image/Semicolon.png</file>
         <file>Image/Lfalse.png</file>
         <file>Image/Ltrue.png</file>
         <file>Image/L.png</file>
@@ -73,12 +73,12 @@
         <file>Image/Otrue.png</file>
         <file>Image/Itrue.png</file>
         <file>Image/EmptyButton.png</file>
-        <file>Image/}false.png</file>
-        <file>Image/}true.png</file>
-        <file>Image/}.png</file>
-        <file>Image/{false.png</file>
-        <file>Image/{true.png</file>
-        <file>Image/{.png</file>
+        <file>Image/BraceRightfalse.png</file>
+        <file>Image/BraceRighttrue.png</file>
+        <file>Image/BraceRight.png</file>
+        <file>Image/BraceLeftfalse.png</file>
+        <file>Image/BraceLefttrue.png</file>
+        <file>Image/BraceLeft.png</file>
         <file>Image/Pfalse.png</file>
         <file>Image/Ptrue.png</file>
         <file>Image/P.png</file>
@@ -108,10 +108,5 @@
         <file>Image/W.png</file>
         <file>Image/keyboard.ico</file>
         <file>Image/OnlyRussian.png</file>
-    </qresource>
-    <qresource prefix="/Text">
-        <file>PlaceOnKeyboard.txt</file>
-        <file>Symbols.txt</file>
-        <file>Words.txt</file>
     </qresource>
 </RCC>
