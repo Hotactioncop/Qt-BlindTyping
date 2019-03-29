@@ -2,7 +2,6 @@
 
 Show::Show(QWidget *parent) : QWidget(parent)
 {
-
 }
 
 void Show::getword(QString other)
@@ -14,53 +13,41 @@ void Show::getword(QString other)
     repaint();
 }
 
-void Show::getbool(bool clear)
+void Show::getcorrect(uint correct)
 {
-    if(mark){
-
-        mark = false;
-        repaint();
-        return;
-    }
-    else {
-        if(clear){
-            symbPr++;
-        }
-        else {
-            mark=true;
-        }
-        repaint();
-    }
+    symbPr = correct;
+    repaint();
 }
 
+void Show::getbool(bool clear)
+{
+    mark = clear;
+    repaint();
+}
 
 void Show::paintEvent(QPaintEvent *event)
 {
+    QPainter spen(this);
     if(gameOn){
-        QPainter spen(this);
+        spen.setFont(QFont("Times", charSize,QFont::Bold));
+        QString str;
+        int startPosition = (this->width()-showWord.size()*charSize)/2;
         spen.setPen(QPen(Qt::gray));
-        spen.setFont(QFont("Times", 48,QFont::Bold));
-        QString correctStr;
-        QString wrongStr;
-        QString leftStr;
-
-        if(symbPr){
-            spen.setPen(QPen(Qt::black));
-            correctStr = showWord.mid(0,symbPr);
-            spen.drawText((this->width()-showWord.size()*48)/2,50,correctStr);
-        }
+        spen.drawText(startPosition,50,showWord);
         if(mark){
             spen.setPen(QPen(Qt::red));
-            wrongStr = showWord.mid(symbPr,1);
-            spen.drawText((this->width()-showWord.size()*48)/2+correctStr.size()*41,50,wrongStr);
-            spen.setPen(QPen(Qt::gray));
-            leftStr = showWord.mid(symbPr+1);
-            spen.drawText((this->width()-showWord.size()*48)/2+correctStr.size()*41+40,50,leftStr);
+            str = showWord.mid(0,symbPr+1);
+            spen.drawText(startPosition,50,str);
         }
-        else{
-            spen.setPen(QPen(Qt::gray));
-            leftStr = showWord.mid(symbPr);
-            spen.drawText((this->width()-showWord.size()*48)/2+correctStr.size()*41,50,leftStr);
+        if(symbPr){
+            spen.setPen(QPen(Qt::black));
+            str = showWord.mid(0,symbPr);
+            spen.drawText(startPosition,50,str);
         }
+    }
+    else {
+        spen.setFont(QFont("Times", 20,QFont::Bold));
+        spen.setPen(QPen(Qt::gray));
+        spen.drawText((this->width()-25*20)/2,50,"Здесь будет выведено слово");
     }
 }

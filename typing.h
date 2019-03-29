@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QString>
 #include <QTime>
+#include <QProgressBar>
 
 namespace Ui {
 class Typing;

@@ -3,9 +3,9 @@
 Keyboard::Keyboard(QWidget *parent) : QWidget(parent)
 {
     setFixedSize(1280,950);
-    pix = QPixmap(":/Images/Image/OnlyRussian.png").scaled(1024,254,Qt::KeepAspectRatio,Qt::FastTransformation);
+    QPixmap pix = QPixmap(":/Images/Image/OnlyRussian.png").scaled(1024,254,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes.resize(3);
-    for(auto&X:pixes){
+    for(auto&X:pixes){              //Загружаем в вектор изображения всех кнопок клавиатуры, включая изображения верно и неверно введенных.
         X.resize(34);
     }
     pixes[0][0] = QPixmap(":/Images/Image/Q.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
@@ -113,13 +113,14 @@ Keyboard::Keyboard(QWidget *parent) : QWidget(parent)
     pixes[2][32] = QPixmap(":/Images/Image/DOTfalse.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[2][33] = QPixmap(":/Images/Image/SPACEfalse.png").scaled(538,84,Qt::KeepAspectRatio,Qt::FastTransformation);
 
-    /*Имеем два вектора QChar и один QString.
+    /*Имеем два вектора QChar и один вектор QString.
      * 1ый вектор QChar содержит буквы алфавита расположенные от центра к краям. Необходим для вывода клавиш на экран в данной последовательности.
      * 2ой вектор Qchar содержит буквы алфавита, отсортированные по иерархии расположения на клавиатуре. Необходим для обращения символу из первого вектора
      * для определения местоположения и вывода клавиши на экран.
      * 3ий вектор QString содержит вектор слов, отсортированных в последовательности согласно первому вектору букв.*/
 
     wordBase.resize(36);
+    levelProgress.resize(36);
     QFile textSymbols(":/Text/Symbols.txt");
     if(textSymbols.open(QIODevice::ReadOnly |QIODevice::Text)){
         QString someString = textSymbols.readLine();            //Файл содержит 32 буквы алфавита, расположенные от центра клавиатуры к краям
@@ -128,6 +129,7 @@ Keyboard::Keyboard(QWidget *parent) : QWidget(parent)
             symbols.push_back(*ptr);                            //Побуквенно переносим в вектор
         }
     }
+    int charQuant = 0;
     QFile textFile(":/Text/Words.txt");
     if(textFile.open(QIODevice::ReadOnly |QIODevice::Text))
         {
@@ -135,6 +137,7 @@ Keyboard::Keyboard(QWidget *parent) : QWidget(parent)
             {
                 checkWord = textFile.readLine();//Читаем файл построчно QString.
                 checkWord.remove('\n');         //Удаляем признак конца строки '\n'
+                charQuant =checkWord.size();
                 for(QChar *ptr = checkWord.begin(); ptr!=checkWord.end(); ptr++)
                 {
                     if(symbols.indexOf(*ptr)>index) //Проверяем индекс каждой буквы по нашему вектору.
@@ -144,6 +147,8 @@ Keyboard::Keyboard(QWidget *parent) : QWidget(parent)
                 }
                 if(index>0){
                     wordBase[index].push_back(checkWord); //помещаем это слово в пустой массив согласно индексу.
+                    levelProgress[index]+=charQuant;
+                    charQuant=0;
                 }
                 index = -1;                               //возвращаем индекс в исходное состояние.
             }
@@ -154,18 +159,16 @@ Keyboard::Keyboard(QWidget *parent) : QWidget(parent)
         }
     QFile placeSymbols(":/Text/PlaceOnKeyboard.txt");
     if(placeSymbols.open(QIODevice::ReadOnly |QIODevice::Text)){
-        QString someString = placeSymbols.readLine();       //Файл содержит 32 буквы алфавита, расположенные по иерархии расположения на клавиатуре(йцукен...фывапр...ячсмит...)
+        QString someString = placeSymbols.readLine();       //Файл содержит 32 буквы алфавита, отсортированные по иерархии расположения на клавиатуре(йцукен...фывапр...ячсмит...)
         someString.remove('\n');                            //Побуквенно переносим в вектор
         for(QChar* ptr=someString.begin();ptr!=someString.end();ptr++){
             place.push_back(*ptr);
         }
     }
-    int sad=0;
-//    for(auto&X:wordBase){
-//        qDebug() << sad << X.size() << symbols[sad];
-//        sad++;
-//    }
-
+    for(auto&X:levelProgress){
+        qDebug() << X;
+        if(X>500)X=500;
+    }
 }
 
 void Keyboard::startGame()
@@ -173,11 +176,26 @@ void Keyboard::startGame()
     if(!gameOn){
         idTimer=startTimer(1000);
         gameOn=true;
-        this->setFocus();
         index = 2;      //Устанавливаем индекс на 2 для вывода на экран всех предшестующих букв клавиатуры и вывода слова, состоящего из этих букв. п-0, р-1, о-2.
         checkWord=wordBase[index][qrand()%wordBase[index].size()];      //произвольно выбираем слово из нашего вектора.
         emit sendWord(checkWord);                                       //передаем слово для вывода на верхний экран.
     }
+    this->setFocus();
+}
+
+void Keyboard::nextLevel()
+{
+    if(gameOn && index<31){
+        index++;
+        checkWord=wordBase[index][qrand()%wordBase[index].size()];      //произвольно выбираем слово из нашего вектора.
+        missChar = false;
+        mistake = false;
+        keyHold=false;
+        myWord.clear();
+        emit sendWord(checkWord);                                       //передаем слово для вывода на верхний экран.
+        repaint();
+    }
+    this->setFocus();
 }
 
 
@@ -186,7 +204,7 @@ void Keyboard::paintEvent(QPaintEvent *event)
     /*Выводим на экран все клавиши, до значения index включительно.
      * Определяем какой последовательности на клавиатуре соответствует каждая из букв до index.
      * Если текущую букву пользователь не вводил с клавиатуры, то выводим на экран дефолтный Pixmap - содержится в векторе pixes[0][...]
-     * Как только доходим до буквы, которую пользователь ввел с клавиатуры, проверяем, если она совпадает с текущей в checkWord (hit==true),
+     * Как только доходим до буквы, которую пользователь ввел с клавиатуры, проверяем, если она совпадает с текущей в checkWord (missChar==false),
      * то выводим на экран положительный Pixmap - содержится в векторе pixes[1][...]
      * Если пользователь ввел неверную букву, то выводим на экран отрицательный Pixmap - содержится в векторе pixes[2][...]*/
     QPainter pens(this);
@@ -197,7 +215,7 @@ void Keyboard::paintEvent(QPaintEvent *event)
         int keep = place.indexOf(*ptr);
         if(keep<12){
             if (keep==buttPos){
-                if(hit){
+                if(!missChar){
                     pens.drawPixmap(2*keep+keep*pixes[0][0].width(),5,pixes[1][keep]);
                 }
                 else {
@@ -210,7 +228,7 @@ void Keyboard::paintEvent(QPaintEvent *event)
         }
         else if(keep<23){
             if (keep==buttPos){
-                if(hit){
+                if(!missChar){
                     pens.drawPixmap(30+2*(keep-12)+(keep-12)*pixes[0][0].width(),10+pixes[0][0].height(),pixes[1][keep]);
                 }
                 else {
@@ -223,11 +241,11 @@ void Keyboard::paintEvent(QPaintEvent *event)
         }
         else{
             if (keep==buttPos){
-                if(hit){
-                    pens.drawPixmap(70+2*(keep-22)+(keep-22)*pixes[0][0].width(),15+2*pixes[0][0].height(),pixes[1][keep]);
+                if(!missChar){
+                    pens.drawPixmap(70+2*(keep-22)+(keep-23)*pixes[0][0].width(),15+2*pixes[0][0].height(),pixes[1][keep]);
                 }
                 else {
-                    pens.drawPixmap(70+2*(keep-22)+(keep-22)*pixes[0][0].width(),15+2*pixes[0][0].height(),pixes[2][keep]);
+                    pens.drawPixmap(70+2*(keep-22)+(keep-23)*pixes[0][0].width(),15+2*pixes[0][0].height(),pixes[2][keep]);
                 }
             }
             else {
@@ -256,11 +274,10 @@ void Keyboard::paintEvent(QPaintEvent *event)
 
 void Keyboard::keyPressEvent(QKeyEvent *event)
 {
-    if(hit){
-        if(myWord.size()<checkWord.size())
-        {
-
-        }
+    if(keyHold){
+        return;
+    }
+    if(!missChar){
         if (event->modifiers()==Qt::ShiftModifier ){
             if (event->key()==Qt::Key_Q){
                 myWord+="Й";
@@ -533,21 +550,25 @@ void Keyboard::keyPressEvent(QKeyEvent *event)
             myWord+=" ";
             buttPos=33;
         }
-        if (event->key()==Qt::Key_Backspace){
+        else if (event->key()==Qt::Key_Backspace){
             if(myWord.size()!=0){
                 myWord.remove(myWord.size()-1,1);
+            }
+            if(myWord.size()==0){
+                emit correctChar(myWord.size());
             }
         }
         if(myWord.size()<=checkWord.size() && myWord.size()!=0){
             if(myWord.at(myWord.size()-1)==checkWord.at(myWord.size()-1)){
-                hit = true;
-                emit sendSignal(true);
+                missChar = false;
+                emit correctChar(myWord.size());
                 repaint();
+                if(myWord==checkWord)keyHold=true; //Блокирует залипание клавиш
             }
             else {
-                hit = false;
+                missChar = true;
                 mistake = true;
-                emit sendSignal(false);
+                emit sendSignal(true);
                 repaint();
             }
         }
@@ -556,9 +577,9 @@ void Keyboard::keyPressEvent(QKeyEvent *event)
         if (event->key()==Qt::Key_Backspace){
             if(myWord.size()!=0){
                 myWord.remove(myWord.size()-1,1);
-                emit sendSignal(true);
+                emit sendSignal(false);
                 buttPos = 100;
-                hit = true;
+                missChar = false;
                 repaint();
             }
         }
@@ -568,7 +589,7 @@ void Keyboard::keyPressEvent(QKeyEvent *event)
 
 void Keyboard::keyReleaseEvent(QKeyEvent *event)
 {
-    if(hit == true){
+    if(missChar == false){
         buttPos = 100;
         repaint();
     }
@@ -580,6 +601,7 @@ void Keyboard::timerEvent(QTimerEvent *event)
     int index2;
     if(checkWord==myWord){
         if (!mistake){
+            progress += checkWord.size();
             index2 = wordBase[index].indexOf(checkWord);
             if(wordBase[index].size()!=1){
                 swap(wordBase[index][index2],wordBase[index][wordBase[index].size()-1]);
@@ -588,12 +610,20 @@ void Keyboard::timerEvent(QTimerEvent *event)
             else {
                 wordBase[index].pop_back();
                 index++;
+                progress=0;
             }
         }
         else {
+            progress += checkWord.size()/2;
             mistake=false;
         }
+        if(progress>=levelProgress[index]){
+            index++;
+            progress = 0;
+        }
+        emit sendProgress (progress*100/levelProgress[index]);
         checkWord=wordBase[index][qrand()%wordBase[index].size()];
+        keyHold=false;
         emit sendWord(checkWord);
         myWord.clear();
         repaint();

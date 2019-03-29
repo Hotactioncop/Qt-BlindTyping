@@ -21,46 +21,40 @@
 class Keyboard : public QWidget
 {
     Q_OBJECT
-    QPixmap pix;
-    QString checkWord;
-    int buttPos = 100;
-    bool hit = true;
-    QString myWord;
-    int NextWord = 0;
-    QVector <QString> stringWord;
-    QVector <QVector<QPixmap>> pixes;
-    int idTimer;
-    bool gameOn = false;
-    uint charNumbers = 3;
-    bool mistake = false;
-    int index = -1;
-    QVector<QChar> symbols;
-    QVector<QChar> place;
-    QVector <QVector<QString>> wordBase;
+    QString checkWord;                   //Проверочное слово
+    int buttPos = 100;                   //Индекс кнопки клавиатуры нажатой пользователем - для вывода изображения на экран.
+    bool missChar = false;               //Соответствие введенной пользователем буквы.
+    QString myWord;                      //Слово, образующееся в процессе ввода пользователем символов с клавиатуры. Проверяется на соответствие с установленным словом checkWord
+    QVector <QVector<QPixmap>> pixes;    //Вектор изображений кнопок клавиатуры для вывода на экран
+    int idTimer;                         //Установка таймера для проверки слова и замены на новое.
+    bool gameOn = false;                 //Признак начала игры
+    bool mistake = false;                //Наличие ошибки в слове
+    bool keyHold = false;                //Защита от залипания клавиш
+    int index = -1;                      //Положение индекса в векторе wordBase - с которого начнется вывод слов. При старте устанавливается на 2 - (наличие трех букв П Р О)
+    QVector<QChar> symbols;              //Вектор отсортированных букв, по нарастающей сложности(от центра клавиатуры П Р О, к краям Й Ъ Я Ю)
+    QVector<QChar> place;                //Вектор отсортированных букв, согласно расположению на клавиатуре(йцукен...фывапр...ячсмит...), для вывода на экран клавиатуры
+    QVector <QVector<QString>> wordBase; //База слов, отсортированных по вектору symbols (сортировка по принципу наличия в слове буквы, имеющей максимальный индекс в векторе symbols)
+    QVector <int> levelProgress;
+//    QVector <int> levelProgress{100,200,300,400,500,600,700,700,700,700,700,700,700,700,700,700,700,700,700,700,700,700,700,700,700,700,700,700,700};
+    int progress = 0;
 public:
     explicit Keyboard(QWidget *parent = nullptr);
 
 signals:
-    void sendWord(QString);
-    void sendSignal(bool);
+    void sendWord(QString);              //Передаем проверочное слово checkWord на виджет - для вывода на экран
+    void sendSignal(bool);               //Передаем признак наличия ошибки
+    void correctChar(uint);              //Передаем количество букв в нашем слове myWord
+    void sendProgress(int);
 
 public slots:
-    void startGame();
+    void startGame();                    //Слот Начала игры. Вызывается при нажатии пользователем кнопки "Старт".
+    void nextLevel();
 
     // QWidget interface
 protected:
     virtual void paintEvent(QPaintEvent *event);
-
-    // QWidget interface
-protected:
     virtual void keyPressEvent(QKeyEvent *event);
-
-    // QWidget interface
-protected:
     virtual void keyReleaseEvent(QKeyEvent *event);
-
-    // QObject interface
-protected:
     virtual void timerEvent(QTimerEvent *event);
 };
 

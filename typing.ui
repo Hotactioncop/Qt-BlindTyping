@@ -7,19 +7,19 @@
     <x>0</x>
     <y>0</y>
     <width>768</width>
-    <height>600</height>
+    <height>640</height>
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
   </property>
   <property name="maximumSize">
    <size>
-    <width>768</width>
-    <height>600</height>
+    <width>16777215</width>
+    <height>890</height>
    </size>
   </property>
   <property name="baseSize">
@@ -35,10 +35,20 @@
    <iconset>
     <normaloff>Image/keyboard.ico</normaloff>Image/keyboard.ico</iconset>
   </property>
+  <property name="layoutDirection">
+   <enum>Qt::LeftToRight</enum>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
      <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QProgressBar" name="progressBar">
+        <property name="value">
+         <number>0</number>
+        </property>
+       </widget>
+      </item>
       <item>
        <widget class="Show" name="ShowWidget" native="true">
         <property name="minimumSize">
@@ -52,15 +62,15 @@
       <item>
        <widget class="Keyboard" name="KeyboardWidget" native="true">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
         <property name="minimumSize">
          <size>
-          <width>0</width>
-          <height>650</height>
+          <width>1060</width>
+          <height>400</height>
          </size>
         </property>
         <property name="maximumSize">
@@ -76,6 +86,131 @@
       </item>
      </layout>
     </item>
+    <item row="0" column="1">
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QPushButton" name="startButton">
+        <property name="minimumSize">
+         <size>
+          <width>160</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>160</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Начать</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="NextButton_">
+        <property name="minimumSize">
+         <size>
+          <width>160</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>160</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Следующая буква</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="ExitButton">
+        <property name="minimumSize">
+         <size>
+          <width>160</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>160</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Выйти</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="minimumSize">
+         <size>
+          <width>160</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>160</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Баллы</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLCDNumber" name="lcdNumber">
+        <property name="minimumSize">
+         <size>
+          <width>160</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>160</width>
+          <height>30</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -87,13 +222,6 @@
      <height>21</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menu">
-    <property name="title">
-     <string>Опции</string>
-    </property>
-    <addaction name="action"/>
-   </widget>
-   <addaction name="menu"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -102,14 +230,8 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="action"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="action">
-   <property name="text">
-    <string>Старт</string>
-   </property>
-  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
@@ -122,7 +244,10 @@
     <signal>sendWord(QString)</signal>
     <signal>printWord(QString)</signal>
     <signal>sendSignal(bool)</signal>
+    <signal>correctChar(uint)</signal>
+    <signal>sendProgress(int)</signal>
     <slot>startGame()</slot>
+    <slot>nextLevel()</slot>
    </slots>
   </customwidget>
   <customwidget>
@@ -133,20 +258,21 @@
    <slots>
     <slot>getword(QString)</slot>
     <slot>getbool(bool)</slot>
+    <slot>getcorrect(uint)</slot>
    </slots>
   </customwidget>
  </customwidgets>
  <resources/>
  <connections>
   <connection>
-   <sender>action</sender>
-   <signal>triggered()</signal>
+   <sender>startButton</sender>
+   <signal>clicked()</signal>
    <receiver>KeyboardWidget</receiver>
    <slot>startGame()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
+     <x>677</x>
+     <y>68</y>
     </hint>
     <hint type="destinationlabel">
      <x>383</x>
@@ -183,6 +309,70 @@
     <hint type="destinationlabel">
      <x>383</x>
      <y>128</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>KeyboardWidget</sender>
+   <signal>correctChar(uint)</signal>
+   <receiver>ShowWidget</receiver>
+   <slot>getcorrect(uint)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>348</x>
+     <y>534</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>348</x>
+     <y>128</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>ExitButton</sender>
+   <signal>clicked()</signal>
+   <receiver>Typing</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>662</x>
+     <y>131</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>689</x>
+     <y>172</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>NextButton_</sender>
+   <signal>clicked()</signal>
+   <receiver>KeyboardWidget</receiver>
+   <slot>nextLevel()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>677</x>
+     <y>93</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>539</x>
+     <y>409</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>KeyboardWidget</sender>
+   <signal>sendProgress(int)</signal>
+   <receiver>progressBar</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>539</x>
+     <y>425</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>299</x>
+     <y>53</y>
     </hint>
    </hints>
   </connection>
