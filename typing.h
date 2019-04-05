@@ -6,6 +6,7 @@
 #include <QTime>
 #include <QProgressBar>
 
+
 namespace Ui {
 class Typing;
 }
@@ -20,6 +21,8 @@ public:
 
 private:
     Ui::Typing *ui;
+public slots:
+    void changeMusicIcon(bool);
 };
 
 #endif // TYPING_H

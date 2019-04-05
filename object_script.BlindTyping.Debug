@@ -1,0 +1,10 @@
+debug/main.o
+debug/typing.o
+debug/keyboard.o
+debug/show.o
+debug/qrc_myimages.o
+debug/qrc_mytext.o
+debug/qrc_mysound.o
+debug/moc_typing.o
+debug/moc_keyboard.o
+debug/moc_show.o

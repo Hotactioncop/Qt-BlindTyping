@@ -17,6 +17,10 @@
 #include <QMessageBox>
 #include <QTextStream>
 #include <QTextCodec>
+#include <QMultimedia>
+#include <QSound>
+#include <QMediaPlayer>
+#include <QMediaPlaylist>
 
 class Keyboard : public QWidget
 {
@@ -38,6 +42,9 @@ class Keyboard : public QWidget
     int wellWord = 0;                    //Правильно введедено слов на текущем уровне сложности
     int Score = 0;                       //Набрано очков
     int progress = 0;                    //Прогресс на текущем уровне
+//    QMediaPlayer * m_player;             // Аудио плеер
+//    QMediaPlaylist * m_playlist;         // Плейлист
+    bool sound = false;                  //Идентификатор включения звука
 public:
     explicit Keyboard(QWidget *parent = nullptr);
 
@@ -47,10 +54,12 @@ signals:
     void correctChar(uint);              //Передаем количество букв в нашем слове myWord
     void sendProgress(int);              //Передаем прогресс за текущий уровень
     void sendScore(int);                 //Передаем количество набранных очков
+    void changeMusic(bool);
 
 public slots:
     void startGame();                    //Слот Начала игры. Вызывается при нажатии пользователем кнопки "Старт".
     void nextLevel();                    //Переходим на следующий уровень(index++)
+    void playMusic();
 
     // QWidget interface
 protected:

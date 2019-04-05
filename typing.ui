@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>768</width>
-    <height>640</height>
+    <width>1248</width>
+    <height>654</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -209,6 +209,29 @@
         </property>
        </spacer>
       </item>
+      <item>
+       <widget class="QPushButton" name="MusicButton">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Музыка</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>Image/buttonOff.ico</normaloff>Image/buttonOff.ico</iconset>
+        </property>
+       </widget>
+      </item>
      </layout>
     </item>
    </layout>
@@ -218,7 +241,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>768</width>
+     <width>1248</width>
      <height>21</height>
     </rect>
    </property>
@@ -247,8 +270,10 @@
     <signal>correctChar(uint)</signal>
     <signal>sendProgress(int)</signal>
     <signal>sendScore(int)</signal>
+    <signal>changeMusic(bool)</signal>
     <slot>startGame()</slot>
     <slot>nextLevel()</slot>
+    <slot>playMusic()</slot>
    </slots>
   </customwidget>
   <customwidget>
@@ -393,8 +418,41 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>MusicButton</sender>
+   <signal>clicked()</signal>
+   <receiver>KeyboardWidget</receiver>
+   <slot>playMusic()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1127</x>
+     <y>608</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>539</x>
+     <y>425</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>KeyboardWidget</sender>
+   <signal>changeMusic(bool)</signal>
+   <receiver>Typing</receiver>
+   <slot>changeMusicIcon(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>539</x>
+     <y>425</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>623</x>
+     <y>326</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>getWord(QString)</slot>
+  <slot>changeMusicIcon(bool)</slot>
  </slots>
 </ui>

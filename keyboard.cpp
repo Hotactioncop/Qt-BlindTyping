@@ -6,7 +6,7 @@ Keyboard::Keyboard(QWidget *parent) : QWidget(parent)
     QPixmap pix = QPixmap(":/Images/Image/OnlyRussian.png").scaled(1024,254,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes.resize(3);
     for(auto&X:pixes){              //Загружаем в вектор изображения всех кнопок клавиатуры, включая изображения верно и неверно введенных.
-        X.resize(34);
+        X.resize(36);
     }
     pixes[0][0] = QPixmap(":/Images/Image/Q.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[0][1] = QPixmap(":/Images/Image/W.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
@@ -40,8 +40,10 @@ Keyboard::Keyboard(QWidget *parent) : QWidget(parent)
     pixes[0][29] = QPixmap(":/Images/Image/M.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[0][30] = QPixmap(":/Images/Image/Less.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[0][31] = QPixmap(":/Images/Image/Greater.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
-    pixes[0][32] = QPixmap(":/Images/Image/DOT.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
-    pixes[0][33] = QPixmap(":/Images/Image/SPACE.png").scaled(538,84,Qt::KeepAspectRatio,Qt::FastTransformation);
+    pixes[0][32] = QPixmap(":/Images/Image/Tilde.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
+    pixes[0][33] = QPixmap(":/Images/Image/Dash.png").scaled(538,84,Qt::KeepAspectRatio,Qt::FastTransformation);
+    pixes[0][34] = QPixmap(":/Images/Image/DOT.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
+    pixes[0][35] = QPixmap(":/Images/Image/SPACE.png").scaled(538,84,Qt::KeepAspectRatio,Qt::FastTransformation);
 
     pixes[1][0] = QPixmap(":/Images/Image/Qtrue.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[1][1] = QPixmap(":/Images/Image/Wtrue.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
@@ -75,8 +77,10 @@ Keyboard::Keyboard(QWidget *parent) : QWidget(parent)
     pixes[1][29] = QPixmap(":/Images/Image/Mtrue.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[1][30] = QPixmap(":/Images/Image/Lesstrue.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[1][31] = QPixmap(":/Images/Image/Greatertrue.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
-    pixes[1][32] = QPixmap(":/Images/Image/DOTtrue.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
-    pixes[1][33] = QPixmap(":/Images/Image/SPACEtrue.png").scaled(538,84,Qt::KeepAspectRatio,Qt::FastTransformation);
+    pixes[1][32] = QPixmap(":/Images/Image/Tildetrue.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
+    pixes[1][33] = QPixmap(":/Images/Image/Dashtrue.png").scaled(538,84,Qt::KeepAspectRatio,Qt::FastTransformation);
+    pixes[1][34] = QPixmap(":/Images/Image/DOTtrue.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
+    pixes[1][35] = QPixmap(":/Images/Image/SPACEtrue.png").scaled(538,84,Qt::KeepAspectRatio,Qt::FastTransformation);
 
     pixes[2][0] = QPixmap(":/Images/Image/Qfalse.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[2][1] = QPixmap(":/Images/Image/Wfalse.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
@@ -110,8 +114,10 @@ Keyboard::Keyboard(QWidget *parent) : QWidget(parent)
     pixes[2][29] = QPixmap(":/Images/Image/Mfalse.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[2][30] = QPixmap(":/Images/Image/Lessfalse.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
     pixes[2][31] = QPixmap(":/Images/Image/Greaterfalse.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
-    pixes[2][32] = QPixmap(":/Images/Image/DOTfalse.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
-    pixes[2][33] = QPixmap(":/Images/Image/SPACEfalse.png").scaled(538,84,Qt::KeepAspectRatio,Qt::FastTransformation);
+    pixes[2][32] = QPixmap(":/Images/Image/Tildefalse.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
+    pixes[2][33] = QPixmap(":/Images/Image/Dashfalse.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
+    pixes[2][34] = QPixmap(":/Images/Image/DOTfalse.png").scaled(84,84,Qt::KeepAspectRatio,Qt::FastTransformation);
+    pixes[2][35] = QPixmap(":/Images/Image/SPACEfalse.png").scaled(538,84,Qt::KeepAspectRatio,Qt::FastTransformation);
 
     /*Имеем два вектора QChar и один вектор QString.
      * 1ый вектор QChar содержит буквы алфавита расположенные от центра к краям. Необходим для вывода клавиш на экран в данной последовательности.
@@ -140,9 +146,9 @@ Keyboard::Keyboard(QWidget *parent) : QWidget(parent)
                 charQuant =checkWord.size();
                 for(QChar *ptr = checkWord.begin(); ptr!=checkWord.end(); ptr++)
                 {
-                    if(symbols.indexOf(*ptr)>index) //Проверяем индекс каждой буквы по нашему вектору.
+                    if(symbols.indexOf(*ptr)%36>index) //Проверяем индекс каждой буквы по нашему вектору.
                     {
-                        index = symbols.indexOf(*ptr);//Присваиваем максимальный индекс нашего слова согласно вектору букв.
+                        index = symbols.indexOf(*ptr)%36;//Присваиваем максимальный индекс нашего слова согласно вектору букв.
                     }
                 }
                 if(index>0){
@@ -166,9 +172,14 @@ Keyboard::Keyboard(QWidget *parent) : QWidget(parent)
         }
     }
     for(auto&X:levelProgress){
-        qDebug() << X;
         if(X>500)X=500;
     }
+//    m_player = new QMediaPlayer(this);          // Инициализация плеера
+//    m_playlist = new QMediaPlaylist(m_player);  // Инициализация плейлиста
+//    m_player->setPlaylist(m_playlist);          // Установка плейлиста в аудио плеер
+//    m_playlist->addMedia(QUrl("C:/Users/prime/Desktop/BlindTyping/sounds/Nar1.wav"));       // Добавление трека в плейлист
+//    m_playlist->addMedia(QUrl("C:/Users/prime/Desktop/BlindTyping/sounds/Nar2.wav"));       // Добавление трека в плейлист
+    //m_playlist->setPlaybackMode(QMediaPlaylist::CurrentItemOnce); // Зацикливание трека
 }
 
 void Keyboard::startGame()
@@ -200,7 +211,13 @@ void Keyboard::startGame()
 
 void Keyboard::nextLevel()
 {
-    if(gameOn && index<31){
+    if(index==31 || wordBase[index+1].size()==0){
+        QMessageBox::information(this,"Congratulations!", "Ваше обучение завершено!");
+        killTimer(idTimer);
+        gameOn=false;
+        return;
+    }
+    if(gameOn && index<symbols.size()-1){
         index++;
         checkWord=wordBase[index][qrand()%wordBase[index].size()];      //произвольно выбираем слово из нашего вектора.
         missChar = false;
@@ -211,6 +228,21 @@ void Keyboard::nextLevel()
         emit sendProgress(progress);
         emit sendWord(checkWord);                                       //передаем слово для вывода на верхний экран.
         repaint();
+    }
+    this->setFocus();
+}
+
+void Keyboard::playMusic()
+{
+    if(!sound){
+//        m_player->play();
+        emit changeMusic(true);
+        sound=true;
+    }
+    else{
+//        m_player->stop();
+        emit changeMusic(false);
+        sound=false;
     }
     this->setFocus();
 }
@@ -231,6 +263,7 @@ void Keyboard::paintEvent(QPaintEvent *event)
     for(QChar*ptr=symbols.begin(); ptr<=(symbols.begin()+index); ptr++){
         int keep = place.indexOf(*ptr);
         if(keep<12){
+
             if (keep==buttPos){
                 if(!missChar){
                     pens.drawPixmap(2*keep+keep*pixes[0][0].width(),5,pixes[1][keep]);
@@ -256,7 +289,7 @@ void Keyboard::paintEvent(QPaintEvent *event)
                 pens.drawPixmap(30+2*(keep-12)+(keep-12)*pixes[0][0].width(),10+pixes[0][0].height(),pixes[0][keep]);
             }
         }
-        else{
+        else if(keep<32){
             if (keep==buttPos){
                 if(!missChar){
                     pens.drawPixmap(70+2*(keep-22)+(keep-23)*pixes[0][0].width(),15+2*pixes[0][0].height(),pixes[1][keep]);
@@ -272,17 +305,17 @@ void Keyboard::paintEvent(QPaintEvent *event)
     }
     //Выводимт на экран клавишу, которую пользователь ввел с клавиатуры, но не совпадающую ни с одной буквой из представленных на экране(до значения index в векторе symbols)
     if(buttPos<=33){
-        if(symbols.indexOf(place[buttPos])>index){          //Если пользовательная клавиша находится за пределами выведенных на экран клавиш(больше чем index вектора symbols)
+        if(symbols.indexOf(place[buttPos])>index){          //Если пользовательская клавиша находится за пределами выведенных на экран клавиш(больше чем index вектора symbols)
             if(buttPos<12){
                 pens.drawPixmap(2*buttPos+buttPos*pixes[0][0].width(),5,pixes[2][buttPos]); //Выводим на экран клавишу из первой строки
             }
             else if(buttPos<23){
                 pens.drawPixmap(30+2*(buttPos-12)+(buttPos-12)*pixes[0][0].width(),10+pixes[0][0].height(),pixes[2][buttPos]);//Выводим на экран клавишу из второй строки
             }
-            else if(buttPos<33){
+            else if(buttPos<32){
                 pens.drawPixmap(70+2*(buttPos-23)+(buttPos-23)*pixes[0][0].width(),15+2*pixes[0][0].height(),pixes[2][buttPos]);//Выводим на экран клавишу из третьей строки
             }
-            else if(buttPos==33){
+            else if(buttPos==35){
                 pens.drawPixmap(172,20+3*pixes[0][0].height(),pixes[2][buttPos]);//Выводим на экран пробел
             }
         }
@@ -295,277 +328,286 @@ void Keyboard::keyPressEvent(QKeyEvent *event)
         return;
     }
     if(!missChar){
-        if (event->modifiers()==Qt::ShiftModifier ){
-            if (event->key()==Qt::Key_Q){
+        QString text = event->text();
+            if (text=="Й"){
                 myWord+="Й";
                 buttPos = 0;
             }
-            else if (event->key()==Qt::Key_W){
+            else if (text=="Ц"){
                 myWord+="Ц";
                 buttPos = 1;
             }
-            else if (event->key()==Qt::Key_E){
+            else if (text=="У"){
                 myWord+="У";
                 buttPos = 2;
             }
-            else if (event->key()==Qt::Key_R){
+            else if (text=="К"){
                 myWord+="К";
                 buttPos = 3;
             }
-            else if (event->key()==Qt::Key_T){
+            else if (text=="Е"){
                 myWord+="Е";
                 buttPos = 4;
             }
-            else if (event->key()==Qt::Key_Y){
+            else if (text=="Н"){
                 myWord+="Н";
                 buttPos = 5;
             }
-            else if (event->key()==Qt::Key_U){
+            else if (text=="Г"){
                 myWord+="Г";
                 buttPos = 6;
             }
-            else if (event->key()==Qt::Key_I){
+            else if (text=="Ш"){
                 myWord+="Ш";
                 buttPos = 7;
             }
-            else if (event->key()==Qt::Key_O){
+            else if (text=="Щ"){
                 myWord+="Щ";
                 buttPos = 8;
             }
-            else if (event->key()==Qt::Key_P){
+            else if (text=="З"){
                 myWord+="З";
                 buttPos = 9;
             }
-            else if (event->key()==Qt::Key_BraceLeft){
+            else if (text=="Х"){
                 myWord+="Х";
                 buttPos = 10;
             }
-            else if (event->key()==Qt::Key_BraceRight){
+            else if (text=="Ъ"){
                 myWord+="Ъ";
                 buttPos = 11;
             }
-            else if (event->key()==Qt::Key_A){
+            else if (text=="Ф"){
                 myWord+="Ф";
                 buttPos = 12;
             }
-            else if (event->key()==Qt::Key_S){
+            else if (text=="Ы"){
                 myWord+="Ы";
                 buttPos = 13;
             }
-            else if (event->key()==Qt::Key_D){
+            else if (text=="В"){
                 myWord+="В";
                 buttPos = 14;
             }
-            else if (event->key()==Qt::Key_F){
+            else if (text=="А"){
                 myWord+="А";
                 buttPos = 15;
             }
-            else if (event->key()==Qt::Key_G){
+            else if (text=="П"){
                 myWord+="П";
                 buttPos = 16;
             }
-            else if (event->key()==Qt::Key_H){
+            else if (text=="Р"){
                 myWord+="Р";
                 buttPos = 17;
             }
-            else if (event->key()==Qt::Key_J){
+            else if (text=="О"){
                 myWord+="О";
                 buttPos = 18;
             }
-            else if (event->key()==Qt::Key_K){
+            else if (text=="Л"){
                 myWord+="Л";
                 buttPos = 19;
             }
-            else if (event->key()==Qt::Key_L){
+            else if (text=="Д"){
                 myWord+="Д";
                 buttPos = 20;
             }
-            else if (event->key()==Qt::Key_Colon){
+            else if (text=="Ж"){
                 myWord+="Ж";
                 buttPos = 21;
             }
-            else if (event->key()==Qt::Key_QuoteDbl){
+            else if (text=="Э"){
                 myWord+="Э";
                 buttPos = 22;
             }
-            else if (event->key()==Qt::Key_Z){
+            else if (text=="Я"){
                 myWord+="Я";
                 buttPos = 23;
             }
-            else if (event->key()==Qt::Key_X){
+            else if (text=="Ч"){
                 myWord+="Ч";
                 buttPos = 24;
             }
-            else if (event->key()==Qt::Key_C){
+            else if (text=="С"){
                 myWord+="С";
                 buttPos = 25;
             }
-            else if (event->key()==Qt::Key_V){
+            else if (text=="М"){
                 myWord+="М";
                 buttPos = 26;
             }
-            else if (event->key()==Qt::Key_B){
+            else if (text=="И"){
                 myWord+="И";
                 buttPos = 27;
             }
-            else if (event->key()==Qt::Key_N){
+            else if (text=="Т"){
                 myWord+="Т";
                 buttPos = 28;
             }
-            else if (event->key()==Qt::Key_M){
+            else if (text=="Ь"){
                 myWord+="Ь";
                 buttPos = 29;
             }
-            else if (event->key()==Qt::Key_Less){
+            else if (text=="Б"){
                 myWord+="Б";
                 buttPos = 30;
             }
-            else if (event->key()==Qt::Key_Greater){
+            else if (text=="Ю"){
                 myWord+="Ю";
                 buttPos = 31;
             }
-            else if (event->key()==Qt::Key_Question){
-                myWord+=",";
+            else if (text=="Ё"){
+                myWord+="Ё";
                 buttPos = 32;
             }
-        }
-        else {
-            if (event->key()==Qt::Key_Q){
+            else if (text==","){
+                myWord+=",";
+                buttPos = 33;
+            }
+            else if (text=="й"){
                 myWord+="й";
                 buttPos = 0;
             }
-            else if (event->key()==Qt::Key_W){
+            else if (text=="ц"){
                 myWord+="ц";
                 buttPos = 1;
             }
-            else if (event->key()==Qt::Key_E){
+            else if (text=="у"){
                 myWord+="у";
                 buttPos = 2;
             }
-            else if (event->key()==Qt::Key_R){
+            else if (text=="к"){
                 myWord+="к";
                 buttPos = 3;
             }
-            else if (event->key()==Qt::Key_T){
+            else if (text=="е"){
                 myWord+="е";
                 buttPos = 4;
             }
-            else if (event->key()==Qt::Key_Y){
+            else if (text=="н"){
                 myWord+="н";
                 buttPos = 5;
             }
-            else if (event->key()==Qt::Key_U){
+            else if (text=="г"){
                 myWord+="г";
                 buttPos = 6;
             }
-            else if (event->key()==Qt::Key_I){
+            else if (text=="ш"){
                 myWord+="ш";
                 buttPos = 7;
             }
-            else if (event->key()==Qt::Key_O){
+            else if (text=="щ"){
                 myWord+="щ";
                 buttPos = 8;
             }
-            else if (event->key()==Qt::Key_P){
+            else if (text=="з"){
                 myWord+="з";
                 buttPos = 9;
             }
-            else if (event->key()==Qt::Key_BracketLeft){
+            else if (text=="х"){
                 myWord+="х";
                 buttPos = 10;
             }
-            else if (event->key()==Qt::Key_BracketRight){
+            else if (text=="ъ"){
                 myWord+="ъ";
                 buttPos = 11;
             }
-            else if (event->key()==Qt::Key_A){
+            else if (text=="ф"){
                 myWord+="ф";
                 buttPos = 12;
             }
-            else if (event->key()==Qt::Key_S){
+            else if (text=="ы"){
                 myWord+="ы";
                 buttPos = 13;
             }
-            else if (event->key()==Qt::Key_D){
+            else if (text=="в"){
                 myWord+="в";
                 buttPos = 14;
             }
-            else if (event->key()==Qt::Key_F){
+            else if (text=="а"){
                 myWord+="а";
                 buttPos = 15;
             }
-            else if (event->key()==Qt::Key_G){
+            else if (text=="п"){
                 myWord+="п";
                 buttPos = 16;
             }
-            else if (event->key()==Qt::Key_H){
+            else if (text=="р"){
                 myWord+="р";
                 buttPos = 17;
             }
-            else if (event->key()==Qt::Key_J){
+            else if (text=="о"){
                 myWord+="о";
                 buttPos = 18;
             }
-            else if (event->key()==Qt::Key_K){
+            else if (text=="л"){
                 myWord+="л";
                 buttPos = 19;
             }
-            else if (event->key()==Qt::Key_L){
+            else if (text=="д"){
                 myWord+="д";
                 buttPos = 20;
             }
-            else if (event->key()==Qt::Key_Semicolon){
+            else if (text=="ж"){
                 myWord+="ж";
                 buttPos = 21;
             }
-            else if (event->key()==Qt::Key_Apostrophe){
+            else if (text=="э"){
                 myWord+="э";
                 buttPos = 22;
             }
-            else if (event->key()==Qt::Key_Z){
+            else if (text=="я"){
                 myWord+="я";
                 buttPos = 23;
             }
-            else if (event->key()==Qt::Key_X){
+            else if (text=="ч"){
                 myWord+="ч";
                 buttPos = 24;
             }
-            else if (event->key()==Qt::Key_C){
+            else if (text=="с"){
                 myWord+="с";
                 buttPos = 25;
             }
-            else if (event->key()==Qt::Key_V){
+            else if (text=="м"){
                 myWord+="м";
                 buttPos = 26;
             }
-            else if (event->key()==Qt::Key_B){
+            else if (text=="и"){
                 myWord+="и";
                 buttPos = 27;
             }
-            else if (event->key()==Qt::Key_N){
+            else if (text=="т"){
                 myWord+="т";
                 buttPos = 28;
             }
-            else if (event->key()==Qt::Key_M){
+            else if (text=="ь"){
                 myWord+="ь";
                 buttPos = 29;
             }
-            else if (event->key()==Qt::Key_Comma){
+            else if (text=="б"){
                 myWord+="б";
                 buttPos = 30;
             }
-            else if (event->key()==Qt::Key_Period){
+            else if (text=="ю"){
                 myWord+="ю";
                 buttPos = 31;
             }
-            else if (event->key()==Qt::Key_Slash){
-                myWord+=".";
+            else if (text=="ё"){
+                myWord+="ё";
                 buttPos = 32;
             }
-        }
+            else if (text=="-"){
+                myWord+="-";
+                buttPos = 33;
+            }
+            else if (text=="."){
+                myWord+=".";
+                buttPos = 34;
+            }
         if (event->key()==Qt::Key_Space){
             myWord+=" ";
-            buttPos=33;
+            buttPos=35;
         }
         else if (event->key()==Qt::Key_Backspace){
             if(myWord.size()!=0){
@@ -630,6 +672,12 @@ void Keyboard::timerEvent(QTimerEvent *event)
             mistake=false;
         }
         if(progress>=levelProgress[index]){
+            if(index==31 || wordBase[index+1].size()==0){
+                QMessageBox::information(this,"Congratulations!", "Ваше обучение завершено!");
+                killTimer(idTimer);
+                gameOn=false;
+                return;
+            }
             index++;
             wellWord = 0;
             progress = 0;

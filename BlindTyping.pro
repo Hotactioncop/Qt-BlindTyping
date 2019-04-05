@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -45,4 +45,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     myimages.qrc \
-    mytext.qrc
+    mytext.qrc \
+    mysound.qrc
+QTPLUGIN += dsengine qtmedia_audioengine
+CONFIG += mobility
+MOBILITY = multimedia

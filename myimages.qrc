@@ -12,7 +12,6 @@
         <file>Image/Greaterfalse.png</file>
         <file>Image/Greatertrue.png</file>
         <file>Image/Greater.png</file>
-        <file>Image/Lessalse.png</file>
         <file>Image/Lesstrue.png</file>
         <file>Image/Less.png</file>
         <file>Image/Mfalse.png</file>
@@ -108,5 +107,14 @@
         <file>Image/W.png</file>
         <file>Image/keyboard.ico</file>
         <file>Image/OnlyRussian.png</file>
+        <file>Image/Lessfalse.png</file>
+        <file>Image/buttonOff.ico</file>
+        <file>Image/buttonOn.ico</file>
+        <file>Image/Dash.png</file>
+        <file>Image/Dashfalse.png</file>
+        <file>Image/Dashtrue.png</file>
+        <file>Image/Tilde.png</file>
+        <file>Image/Tildefalse.png</file>
+        <file>Image/Tildetrue.png</file>
     </qresource>
 </RCC>

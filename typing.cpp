@@ -23,6 +23,7 @@ Typing::Typing(QWidget *parent) :
                                        "QPushButton::pressed{background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #dadbde, stop: 1 #f6f7fa);}"
                                        "QPushButton::default{border-color: navy;}"
                                        "QPushButton::flat{border: none;}"
+                                       "QPushButton::hover:!pressed{background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #aadbde, stop: 1 #a6f7fa);}"
                                    );
     ui->NextButton->setStyleSheet("QPushButton{border: 2px solid #8f8f91;"
                                        "border-radius: 6px;"
@@ -32,8 +33,19 @@ Typing::Typing(QWidget *parent) :
                                        "QPushButton::pressed{background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #dadbde, stop: 1 #f6f7fa);}"
                                        "QPushButton::default{border-color: navy;}"
                                        "QPushButton::flat{border: none;}"
+                                       "QPushButton::hover:!pressed{background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #aadbde, stop: 1 #a6f7fa);}"
                                    );
     ui->ExitButton->setStyleSheet("QPushButton{border: 2px solid #8f8f91;"
+                                       "border-radius: 6px;"
+                                       "background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #f6f7fa, stop: 1 #dadbde);"
+                                       "min-width: 80px;"
+                                       "}"
+                                       "QPushButton::pressed{background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #dadbde, stop: 1 #f6f7fa);}"
+                                       "QPushButton::default{border-color: navy;}"
+                                       "QPushButton::flat{border: none;}"
+                                       "QPushButton::hover:!pressed{background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #aadbde, stop: 1 #a6f7fa);}"
+                                   );
+    ui->MusicButton->setStyleSheet("QPushButton{border: 2px solid #8f8f91;"
                                        "border-radius: 6px;"
                                        "background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #f6f7fa, stop: 1 #dadbde);"
                                        "min-width: 80px;"
@@ -54,4 +66,17 @@ Typing::Typing(QWidget *parent) :
 Typing::~Typing()
 {
     delete ui;
+}
+
+void Typing::changeMusicIcon(bool sound)
+{
+    QIcon icon;
+    if(sound){
+        icon.addFile(QString::fromUtf8(":/Images/Image/buttonOn.ico"), QSize(), QIcon::Normal, QIcon::Off);
+        ui->MusicButton->setIcon(icon);
+    }
+    else {
+        icon.addFile(QString::fromUtf8(":/Images/Image/buttonOff.ico"), QSize(), QIcon::Normal, QIcon::Off);
+        ui->MusicButton->setIcon(icon);
+    }
 }

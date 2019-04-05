@@ -46,6 +46,7 @@ public:
     QLabel *label;
     QLCDNumber *lcdNumber;
     QSpacerItem *verticalSpacer_2;
+    QPushButton *MusicButton;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -54,7 +55,7 @@ public:
     {
         if (Typing->objectName().isEmpty())
             Typing->setObjectName(QString::fromUtf8("Typing"));
-        Typing->resize(768, 640);
+        Typing->resize(1248, 654);
         QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -147,13 +148,23 @@ public:
 
         verticalLayout_2->addItem(verticalSpacer_2);
 
+        MusicButton = new QPushButton(centralWidget);
+        MusicButton->setObjectName(QString::fromUtf8("MusicButton"));
+        MusicButton->setMinimumSize(QSize(100, 30));
+        MusicButton->setMaximumSize(QSize(100, 30));
+        QIcon icon1;
+        icon1.addFile(QString::fromUtf8("Image/buttonOff.ico"), QSize(), QIcon::Normal, QIcon::Off);
+        MusicButton->setIcon(icon1);
+
+        verticalLayout_2->addWidget(MusicButton);
+
 
         gridLayout->addLayout(verticalLayout_2, 0, 1, 1, 1);
 
         Typing->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(Typing);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 768, 21));
+        menuBar->setGeometry(QRect(0, 0, 1248, 21));
         Typing->setMenuBar(menuBar);
         mainToolBar = new QToolBar(Typing);
         mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));
@@ -171,6 +182,8 @@ public:
         QObject::connect(NextButton, SIGNAL(clicked()), KeyboardWidget, SLOT(nextLevel()));
         QObject::connect(KeyboardWidget, SIGNAL(sendProgress(int)), progressBar, SLOT(setValue(int)));
         QObject::connect(KeyboardWidget, SIGNAL(sendScore(int)), lcdNumber, SLOT(display(int)));
+        QObject::connect(MusicButton, SIGNAL(clicked()), KeyboardWidget, SLOT(playMusic()));
+        QObject::connect(KeyboardWidget, SIGNAL(changeMusic(bool)), Typing, SLOT(changeMusicIcon(bool)));
 
         QMetaObject::connectSlotsByName(Typing);
     } // setupUi
@@ -182,6 +195,7 @@ public:
         NextButton->setText(QApplication::translate("Typing", "\320\241\320\273\320\265\320\264\321\203\321\216\321\211\320\260\321\217 \320\261\321\203\320\272\320\262\320\260", nullptr));
         ExitButton->setText(QApplication::translate("Typing", "\320\222\321\213\320\271\321\202\320\270", nullptr));
         label->setText(QApplication::translate("Typing", "\320\221\320\260\320\273\320\273\321\213", nullptr));
+        MusicButton->setText(QApplication::translate("Typing", "\320\234\321\203\320\267\321\213\320\272\320\260", nullptr));
     } // retranslateUi
 
 };
